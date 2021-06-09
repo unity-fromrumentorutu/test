@@ -15,6 +15,7 @@ public class Block {
     public boolean isFull = true;
     int scorePerCard = 0;
     int scoreAll = 0;
+
     public Block(String edgeString,ArrayList<String> nPlayerIdArray){
         this.edgeString = edgeString;
         for (String playerId : nPlayerIdArray){
@@ -43,7 +44,6 @@ public class Block {
     Block(HashMap<Point,ArrayList<Edge>> edgeMap,String edgeString){
         this.edgeMap= edgeMap;
         this.edgeString = edgeString;
-
     }
 
     public HashMap<Point, ArrayList<Edge>> getEdgeMap() {
@@ -82,7 +82,6 @@ public class Block {
         stringbuilder.append("得分玩家有：\n");
         int i = 1;
         for(String playerId : playerIdArray){
-
             stringbuilder.append("玩家"+i+" : "+playerId+"\n");
             i++;
         }
@@ -183,6 +182,7 @@ public class Block {
      * PlayerIdArray为可以得分的玩家ID数组
      */
     public void caculate() {
+        playerIdArray.clear();
         if(isFull){
             if (edgeString.equals("city")) {
                 scorePerCard = 2;
@@ -303,16 +303,6 @@ public class Block {
     }
     public Boolean scoreRecordIsempty(){
         return scoreRecord.isEmpty();
-    }
-    public void printPlayer(){
-        System.out.println("占领的人有:");
-        for(String playerAccount:scoreRecord.keySet()){
-            System.out.println(playerAccount+"  "+scoreRecord.get(playerAccount));
-        }
-        System.out.println("获得得分的有:");
-        for(int i=0;i<playerIdArray.size();i++){
-            System.out.println(playerIdArray.get(i));
-        }
     }
 
     public int getScoreAll() {

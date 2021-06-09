@@ -203,8 +203,8 @@ class MapUtilTest {
         HashMap<Point,ArrayList<Edge>> edgeMap1 = new HashMap<>();
         edgeMap1.put(point1514,oneCityBottom);
         edgeMap1.put(point1515,twoCity);
-        edgeMap1.put(point1517,oneCityBottom);
         edgeMap1.put(point1516,threeCity);
+
         HashMap<Point,ArrayList<Edge>> edgeMap2 = new HashMap<>();
         edgeMap2.put(point1517,oneCityTop);
         edgeMap2.put(point1616,oneCityLeft);
@@ -231,7 +231,7 @@ class MapUtilTest {
         System.out.println("合并了\n");
         block1.mergeBlock(block2);
         System.out.println(block1);
-        System.out.println("被合并的是了的康康");
+        System.out.println("被合并的是变空了吧\n");
         System.out.println(block2);
 
         System.out.println("开始记分了\n");
@@ -240,9 +240,10 @@ class MapUtilTest {
 
         System.out.println(block1);
 
-        System.out.println("再加一个2，试一下会不会有两个人得分");
-        block1.record(ownerId2);
-        System.out.println(block2);
+        System.out.println("再加一个1，试一下会不会有两个人得分");
+        block1.record(ownerId1);
+        block1.caculate();
+        System.out.println(block1);
     }
 
 }
