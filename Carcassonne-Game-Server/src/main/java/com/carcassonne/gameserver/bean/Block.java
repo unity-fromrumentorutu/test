@@ -135,8 +135,7 @@ public class Block {
         if(edgeString.equals(block.edgeString)){
             pointSet.addAll(block.pointSet);
             for(Point point : block.edgeMap.keySet()){
-                ArrayList<Edge> edgeList =
-                        block.edgeMap.containsKey(point)? block.edgeMap.get(point):new ArrayList<Edge>(){
+                ArrayList<Edge> edgeList = new ArrayList<Edge>(){
                             {
                                 add(null);
                                 add(null);
@@ -144,8 +143,10 @@ public class Block {
                                 add(null);
                             }
                         };
-                ArrayList<Edge> edgeList1 =
-                        edgeMap.containsKey(point)? edgeMap.get(point):new ArrayList<Edge>(){
+                if(block.edgeMap.containsKey(point))
+                edgeList = copy(block.edgeMap.get(point));
+
+                ArrayList<Edge> edgeList1 = new ArrayList<Edge>(){
                             {
                                 add(null);
                                 add(null);
@@ -153,6 +154,8 @@ public class Block {
                                 add(null);
                             }
                         };
+                if(edgeMap.containsKey(point))
+                    edgeList1 = copy(edgeMap.get(point));
                 for(int i=0;i<4;i++){
                     if(edgeList.get(i)!=null){
                         edgeList1.set(i,edgeList.get(i));
@@ -174,7 +177,20 @@ public class Block {
             block.isFull = true;
         }
     }
-
+    public ArrayList<Edge> copy(ArrayList<Edge> edgeArrayList){
+        ArrayList<Edge> edgeList1 = new ArrayList<Edge>(){
+            {
+                add(null);
+                add(null);
+                add(null);
+                add(null);
+            }
+        };
+        for(int i=0;i<4;i++){
+            edgeList1.set(i,edgeArrayList.get(i));
+        }
+        return edgeList1;
+    }
     /**
      * 要先调用Walk函数
      * 城市：2分/块 道路：1分/块
@@ -315,4 +331,5 @@ public class Block {
     public void addPlayerId(String id){
         playerIdArray.add(id);
     }
+
 }
