@@ -1,8 +1,14 @@
 package HTTPUtil;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import entity.PutPoint;
 import okhttp3.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class HTTPUtil {
 
@@ -12,6 +18,7 @@ public class HTTPUtil {
     public static String wander_userJoinRoom = "/wander/userJoinRoom";
     public static String waitStart_readyAndStartGame = "/waitStart/readyAndStartGame";
     public static String playing_getFrameInfo = "/playing/getFrameInfo";
+    public static String playing_fanCard = "/playing/fanCard";
     public static String common_getChatInfo = "/common/getChatInfo";
     public static String common_sendChatInfo = "/common/sendChatInfo";
 
@@ -54,4 +61,18 @@ public class HTTPUtil {
 
         return "网络请求异常(或超时)";
     }
+
+    public static ArrayList<PutPoint> formatFrameToGetPutPoint(JSONObject response){
+        JSONObject roundPlayerOpInfo = response.getJSONObject("roundPlayerOpInfo");
+        JSONArray ps = roundPlayerOpInfo.getJSONArray("roundPlayerCanPutPosition");
+        ArrayList<PutPoint> putPointList = new ArrayList<>();
+        for (int i = 0 ; i<ps.size();i++){
+            JSONObject temp = ps.getJSONObject(i);
+            putPointList.add(new PutPoint((Integer) temp.get("roundPlayerCanPutPositionX"),(Integer) temp.get("roundPlayerCanPutPositionY"),(Integer) temp.get("roundPlayerCanPutPositionRotation")));
+        }
+        Collections.shuffle(putPointList);
+        return putPointList;
+    }
+
+
 }

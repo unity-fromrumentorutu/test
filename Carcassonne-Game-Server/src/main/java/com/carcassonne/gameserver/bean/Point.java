@@ -12,7 +12,7 @@ public class Point {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Point point = (Point) o;
-        return this.x == point.getX() && this.y == point.getY();
+        return x == point.x && y == point.y;
     }
 
     @Override
