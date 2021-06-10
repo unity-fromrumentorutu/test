@@ -36,22 +36,23 @@ public class Test {
         Thread.sleep(200);
 
 
-<<<<<<< HEAD
+
         ArrayList<PutPoint> putPointList = HTTPUtil.formatFrameToGetPutPoint(getFrameInfo1);
 
         String request= "{\"putX\":\""+putPointList.get(0).getX()+"\",\"putY\":\""+putPointList.get(0).getY()+"\",\"rotation\":\""+putPointList.get(0).getRotation()+"\",\"occupyBlock\":\"999\"}" ;
         JSONObject fanCard1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_fanCard,request,TOKEN,token1)) ;
+        JSONObject fanCard2 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_fanCard,request,TOKEN,token2)) ;
 
 
 
 
-=======
+
 
 
 
 
         
->>>>>>> 979d6937fb082179163ad4de86c9ee076b4895be
+
 //        String context1 = "这是第一条消息";
 //        JSONObject sendChatInfo = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.common_sendChatInfo,"{\"type\":\"room\",\"context\":\"" + context1 + "\"}",TOKEN,token1));
 //

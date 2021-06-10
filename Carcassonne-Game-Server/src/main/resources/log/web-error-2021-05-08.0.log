@@ -1,3 +1,0 @@
-2021-05-08 19:59:02.119 [http-nio-90-exec-2] ERROR c.c.gameserver.controller.OfflineController - null
-2021-05-08 20:06:45.565 [http-nio-90-exec-2] ERROR c.c.gameserver.controller.OfflineController - java.lang.NullPointerException
-2021-05-08 20:13:06.352 [http-nio-90-exec-2] ERROR c.c.gameserver.controller.OfflineController - request : {"password":"111","accountNum":"10728760288@qq.com","sex":"男","nickname":"gcy","headPictureURL":"xxx.xxx"} to [/offline/userRegister controller] with error Info ==> java.lang.NullPointerException
