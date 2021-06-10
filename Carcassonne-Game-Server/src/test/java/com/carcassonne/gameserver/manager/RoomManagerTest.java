@@ -94,7 +94,7 @@ class RoomManagerTest {
         RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
 
         roomManager.putCard(15,15,or);
-        roomManager.updateCanPutPositionList(new Point(15,15));
+
         HashMap<Integer, Block> unappropriatedCityBlock = roomManager.getUnappropriatedCityBlock();
 
 //        System.out.println("**********");
@@ -107,16 +107,15 @@ class RoomManagerTest {
 
 
         Card nc1 = new Card();
-        nc1.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        nc1.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        nc1.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.rotate(2);
+        nc1.setTop(new Edge(1,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc1.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"true\",\"lef\":\"true\"}"));
+        nc1.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"true\",\"lef\":\"true\"}"));
+        nc1.setBot(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"false\"}"));
         ArrayList<Point> canPutPositionList = roomManager.getCanPutPositionList(nc1);
         System.out.println("可放位置》》》》》》》》》》》》》");
         System.out.println(canPutPositionList.toString());
         System.out.println("《《《《《《《《《《《《《《《《《");
-        roomManager.putCard(15,14,nc1);
+        roomManager.putCard(15,16,nc1);
 
         canPutPositionList = roomManager.getCanPutPositionList(nc1);
         System.out.println("再放一个同样的牌的可放位置》》》》》》》》》》》》》");

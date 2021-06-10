@@ -278,7 +278,7 @@ public class RoomManager {
     public void updateBlockAllEdgeOwn(Card[][] map,Block block,int own,int p){
         ArrayList<Point> points = new ArrayList<>();
         points = block.getPoints();
-        System.out.println(points);
+//        System.out.println(points);
         for(Point point:points){
             if(map[point.getX()][point.getY()].getTop().getCityorroad()==p){
                 map[point.getX()][point.getY()].setTopRoadOrCity(own);
@@ -354,6 +354,7 @@ public class RoomManager {
         int x = point.getX();
         int y = point.getY();
         Point around[] = {new Point(x,y-1),new Point(x,y+1),new Point(x-1,y),new Point(x+1,y)};
+
         for(int i = 0;i < 4;i++){
             if(!puzzle.getCanPutPositionList().contains(around[i])){
                 int ax=around[i].getX();
@@ -437,7 +438,7 @@ public class RoomManager {
                     tmp.addEdgeMap(point,card.getRig(),1);
                     roadBlock.add(tmp);
                     card.setRigRoadOrCity(roadBlock.size()-1);
-                    System.out.println("右边"+(roadBlock.size()-1));
+//                    System.out.println("右边"+(roadBlock.size()-1));
 //                    ArrayList<Card> nroad1 = new ArrayList<Card>();
 //                    ArrayList<Edge> nroade1 = new ArrayList<Edge>();
 //                    nroad1.add(card);
@@ -479,7 +480,7 @@ public class RoomManager {
                     tmp.addEdgeMap(point,card.getLef(),3);
                     roadBlock.add(tmp);
                     card.setLefRoadOrCity(roadBlock.size()-1);
-                    System.out.println("左边"+(roadBlock.size()-1));
+//                    System.out.println("左边"+(roadBlock.size()-1));
 //                    ArrayList<Card> nroad2 = new ArrayList<Card>();
 //                    ArrayList<Edge> nroade2 = new ArrayList<Edge>();
 //                    nroad2.add(card);
@@ -559,7 +560,7 @@ public class RoomManager {
                     tmp.addEdgeMap(point,card.getTop(),0);
                     cityBlock.add(tmp);
                     card.setTopRoadOrCity(cityBlock.size()-1);
-                    System.out.println("******>"+(cityBlock.size()-1));
+//                    System.out.println("******>"+(cityBlock.size()-1));
 //                    ArrayList<Card> ncity4 = new ArrayList<Card>();
 //                    ArrayList<Edge> ncitye4 = new ArrayList<Edge>();
 //                    ncity4.add(card);
@@ -691,7 +692,7 @@ public class RoomManager {
             }else if(cardRightJson.get("lef").equals("true")){
                 if(card.getRig().getCityorroad()!=card.getLef().getCityorroad()){
                     roadBlock.get(card.getRig().getCityorroad()).mergeBlock(roadBlock.get(card.getLef().getCityorroad()));
-                    System.out.println(card.getRig().getCityorroad()+"吃了"+card.getLef().getCityorroad());
+//                    System.out.println(card.getRig().getCityorroad()+"吃了"+card.getLef().getCityorroad());
                     updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getLef().getCityorroad()),card.getRig().getCityorroad(),card.getLef().getCityorroad());
 
                 }
@@ -833,14 +834,14 @@ public class RoomManager {
             }
         }
 
-        if(card.getTop().getCityorroad()!=-1){
-            System.out.println("Top");
-            System.out.println("road"+card.getTop().getCityorroad()+cityBlock.get(card.getTop().getCityorroad()));
-        }
-        if(card.getBot().getCityorroad()!=-1){
-            System.out.println("Bot");
-            System.out.println(cityBlock.get(card.getBot().getCityorroad()));
-        }
+//        if(card.getTop().getCityorroad()!=-1){
+//            System.out.println("Top");
+//            System.out.println("city"+card.getTop().getCityorroad()+cityBlock.get(card.getTop().getCityorroad()));
+//        }
+//        if(card.getBot().getCityorroad()!=-1){
+//            System.out.println("Bot");
+//            System.out.println("road"+card.getTop().getCityorroad()+roadBlock.get(card.getBot().getCityorroad()));
+//        }
 
         updateCanPutPositionList(point);
 //        nmap[x][y] = card;
