@@ -130,6 +130,7 @@ public class Block {
     /**
      * 合并block
      * @param block
+     * 被合并的block会清空
      */
     public void mergeBlock(Block block){
         if(edgeString.equals(block.edgeString)){
@@ -220,6 +221,10 @@ public class Block {
 
     }
 
+    /**
+     * 将ownerId添加进scoreRecord键值（值为玩家对应个数）对中
+     * @param ownerId
+     */
     public void record(String ownerId) {
         if (scoreRecord.containsKey(ownerId)) {
             scoreRecord.put(ownerId, scoreRecord.get(ownerId) + 1);
