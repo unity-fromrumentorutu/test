@@ -885,7 +885,7 @@ public class RoomManager {
         System.out.println("Right:"+card.getRig().getType()+card.getRig().getCityorroad());
         System.out.println("Bottom:"+card.getBot().getType()+card.getBot().getCityorroad());
         System.out.println("Left:"+card.getLef().getType()+card.getLef().getCityorroad());
-        System.out.println("城镇0得分情况："+cityBlock.get(0));
+//        System.out.println("城镇0得分情况："+cityBlock.get(0));
         updateCanPutPositionList(point);
 //        nmap[x][y] = card;
         puzzle.setmPuzzle(nmap);
