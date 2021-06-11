@@ -38,16 +38,52 @@ public class Card {
 
     public Card(){}
 
+    public JSONObject toJsonString(){
+        JSONObject card = new JSONObject();
+        card.put("id",id);
+        JSONObject top = new JSONObject();
+        top.put("type",this.top.getType());
+        top.put("position",this.top.getPosition());
+        top.put("connect",this.top.getConnect());
+        card.put("top",top);
+
+        JSONObject bot = new JSONObject();
+        bot.put("type",this.bot.getType());
+        bot.put("position",this.bot.getPosition());
+        bot.put("connect",this.bot.getConnect());
+        card.put("bot",bot);
+
+        JSONObject lef = new JSONObject();
+        lef.put("type",this.lef.getType());
+        lef.put("position",this.lef.getPosition());
+        lef.put("connect",this.lef.getConnect());
+        card.put("lef",lef);
+
+        JSONObject rig = new JSONObject();
+        rig.put("type",this.rig.getType());
+        rig.put("position",this.rig.getPosition());
+        rig.put("connect",this.rig.getConnect());
+        card.put("rig",rig);
+
+        return card;
+    }
+
+
     @Override
     public String toString() {
         return "Card{" +
                 "id=" + id +
+                ", pictureUrl='" + pictureUrl + '\'' +
+                ", topEdgeId='" + topEdgeId + '\'' +
+                ", botEdgeId='" + botEdgeId + '\'' +
+                ", lefEdgeId='" + lefEdgeId + '\'' +
+                ", rigEdgeId='" + rigEdgeId + '\'' +
+                ", count=" + count +
                 ", top=" + top +
                 ", bot=" + bot +
                 ", lef=" + lef +
                 ", rig=" + rig +
                 ", rotate='" + rotate + '\'' +
-                ", pictureURL='" + pictureUrl + '\'' +
                 '}';
     }
 

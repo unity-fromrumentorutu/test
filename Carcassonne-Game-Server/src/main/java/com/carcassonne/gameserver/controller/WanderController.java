@@ -179,6 +179,8 @@ public class WanderController {
                 }
             }
 
+            logger.info("userCreateRoom控制器：牌库初始完毕");
+
             Integer roomNum = roomService.createRoom(new Room(null, roomName , roomPassword , Room.WAIT_START_STATE) , cardArrayList);
             Player player = new Player(false,null,null,false,"playing",roomNum,user);
             roomService.userJoinRoom(player,roomNum);

@@ -65,32 +65,54 @@ public class RoomManager {
     }
 
     public Boolean playerAction(String accountNum,Integer putX,Integer putY,Integer rotation,Integer occupyBlockNum,String blockType){
-        if(nowTurnNum == 0 ) nowTurnNum ++;
-        if(players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
-            lastPlayerOpInfo.clear();
-            lastPlayerOpInfo.put("lastPlayerHandCard",players.get(nowPlayerNum).getHand().getId());
-            lastPlayerOpInfo.put("lastPlayerPutX",putX);
-            lastPlayerOpInfo.put("lastPlayerPutY",putY);
-            lastPlayerOpInfo.put("lastPlayerCardRotation",rotation);
 
-            Card card = players.get(nowPlayerNum).getHand();
-            card.rotate(rotation);
-            putCard(putX,putY,card);
-            if(occupyBlockNum != 999){
-                appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
+        JSONArray lib = new JSONArray();
+        for (int i=0; i<cardLibrary.length;i++){
+            lib.add(cardLibrary[i].toJsonString());
+        }
+        System.out.println(lib.toJSONString());
+
+
+
+        try {
+            logger.info("====> 回合数为"+ nowTurnNum +", 玩家序号"+ nowPlayerNum +" 尝试放置坐标(X,Y,R)=("+putX+","+putY+","+rotation+") ，占领：否 ， 手牌URL："+ players.get(nowPlayerNum).getHand().getPictureUrl());
+            if(nowTurnNum == 0 ) nowTurnNum ++;
+            if(players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
+                lastPlayerOpInfo.clear();
+                lastPlayerOpInfo.put("lastPlayerHandCard",players.get(nowPlayerNum).getHand().getId());
+                lastPlayerOpInfo.put("lastPlayerPutX",putX);
+                lastPlayerOpInfo.put("lastPlayerPutY",putY);
+                lastPlayerOpInfo.put("lastPlayerCardRotation",rotation);
+
+                Card card = players.get(nowPlayerNum).getHand();
+                card.rotate(rotation);
+                putCard(putX,putY,card);
+                if(occupyBlockNum != 999){
+                    appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
+                }
+
+                if(nowPlayerNum == players.size() -1){
+                    nowTurnNum++;
+                    nowPlayerNum = 0;
+                    return deal();
+                }else {
+                    nowPlayerNum++;
+                    return deal();
+                }
             }
-
-            if(nowPlayerNum == players.size() -1){
+            logger.info("~~~~ 本次放置成功！");
+            return  true;
+        }catch (Exception e){
+            logger.info("#### playerAction函数出错, 回合数" + nowTurnNum +" 玩家序号" + nowPlayerNum + "切换下一玩家");
+            if(nowPlayerNum == players.size() -1){  //出错先切换玩家
                 nowTurnNum++;
                 nowPlayerNum = 0;
-                return deal();
             }else {
                 nowPlayerNum++;
-                return deal();
             }
-
+            return true;
         }
-        return  false;
+
     }
 
     public JSONObject getLastPlayerOpInfo(){
@@ -125,11 +147,14 @@ public class RoomManager {
 
     public Boolean deal(){
         if(nowLibNum < cardLibrary.length){
-            players.get(nowPlayerNum).setHand(cardLibrary[nowLibNum]);
             nowLibNum++;
+            players.get(nowPlayerNum).setHand(cardLibrary[nowLibNum]);
             return false;
         }
-        else return true;
+
+        else{
+            return true;
+        }
     }
 
     public Integer getNowPlayerHeadCardId(){
@@ -146,9 +171,7 @@ public class RoomManager {
     public JSONArray getNowPlayerCanPutPosition(){
         JSONArray res = new JSONArray();
         HashMap<Integer,ArrayList<Point>> allCanPutPositionList = getAllCanPutPositionList(players.get(nowPlayerNum).getHand());
-                                                                                                logger.info("获取到的能放坐标数量：" + allCanPutPositionList.size());
-                                                                                                logger.info("Key :"+allCanPutPositionList.keySet().toString());
-        for (int i = 0 ; i < 4 ; i++){                                                          logger.info("点："+allCanPutPositionList.get(i).size());
+        for (int i = 0 ; i < 4 ; i++){
             for (int j = 0 ; j < allCanPutPositionList.get(i).size() ; j++){
                 JSONObject temp = new JSONObject();
                 Point tempP = allCanPutPositionList.get(i).get(j);
@@ -158,7 +181,14 @@ public class RoomManager {
                 res.add(temp);
             }
         }
-        logger.info("坐标转换" + res.toJSONString()); //TODO 这里坐标转换出问题了
+
+        //调试使用
+        String pointsStr = "(X,Y,Rotation) =";
+        for(int i=0 ;i<res.size();i++){
+            pointsStr += ", ("+res.getJSONObject(i).get("roundPlayerCanPutPositionX")+","+res.getJSONObject(i).get("roundPlayerCanPutPositionY")+","+
+                    res.getJSONObject(i).get("roundPlayerCanPutPositionRotation")+")";
+        }
+        logger.info("能放的坐标 = " + pointsStr);
         return res;
     }
 
@@ -261,7 +291,7 @@ public class RoomManager {
             nowPlayerNum = 0;
             nowTurnNum = 0;
             deal();
-            logger.info("gameStart" + players );
+            logger.info("游戏开始" + players );
             return "playing";
         }
         return "waiting";
@@ -384,7 +414,7 @@ public class RoomManager {
     //返回旋转4个角度的可放牌坐标
     public HashMap<Integer,ArrayList<Point>> getAllCanPutPositionList(Card card){
         Card tmp = card;
-//        logger.info("开始获取能放的坐标，输入的卡牌："+ card.toString());
+
         HashMap<Integer,ArrayList<Point>> allCanPutPositionList = new HashMap<>();
         allCanPutPositionList.put(0,getCanPutPositionList(tmp));//0°
         tmp.rotate(1);
@@ -400,7 +430,6 @@ public class RoomManager {
 
     //TODO 测试它，有问题qq找我 299108606
     public void putCard(int x,int y,Card card){
-
         Point point = new Point(x,y);
         Card[][] nmap = puzzle.getmPuzzle();
         nmap[x][y] = card;
@@ -880,12 +909,12 @@ public class RoomManager {
 //            System.out.println("Bot");
 //            System.out.println("road"+card.getTop().getCityorroad()+roadBlock.get(card.getBot().getCityorroad()));
 //        }
-        System.out.println("》》》》》》》》"+point+"《《《《《《《《《");
-        System.out.println("Top:"+card.getTop().getType()+card.getTop().getCityorroad());
-        System.out.println("Right:"+card.getRig().getType()+card.getRig().getCityorroad());
-        System.out.println("Bottom:"+card.getBot().getType()+card.getBot().getCityorroad());
-        System.out.println("Left:"+card.getLef().getType()+card.getLef().getCityorroad());
-        System.out.println("城镇0得分情况："+cityBlock.get(0));
+//        System.out.println("》》》》》》》》"+point+"《《《《《《《《《");
+//        System.out.println("Top:"+card.getTop().getType()+card.getTop().getCityorroad());
+//        System.out.println("Right:"+card.getRig().getType()+card.getRig().getCityorroad());
+//        System.out.println("Bottom:"+card.getBot().getType()+card.getBot().getCityorroad());
+//        System.out.println("Left:"+card.getLef().getType()+card.getLef().getCityorroad());
+//        System.out.println("城镇0得分情况："+cityBlock.get(0));
         updateCanPutPositionList(point);
 //        nmap[x][y] = card;
         puzzle.setmPuzzle(nmap);
