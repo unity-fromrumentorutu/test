@@ -148,9 +148,6 @@ class RoomManagerTest {
         System.out.println(roomManager.getPuzzle().getCanPutPositionList());
         System.out.println("》》》》》》》》》可放坐标3《《《《《《《《《《");
         System.out.println(roomManager.getCanPutPositionList(nc3));
-
-        System.out.println("(16.14)"+roomManager.canPutCard(16,14,nc3));
-        System.out.println("(17.15)"+roomManager.canPutCard(17,15,nc3));
         roomManager.putCard(15,16,nc3);
         System.out.println();
 
