@@ -104,15 +104,48 @@ class RoomManagerTest {
 
         roomManager.appropriated(0,"murasame","city");
 
+//      开始放牌
 
         Card nc1 = new Card();
         nc1.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        nc1.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        nc1.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.rotate(2);
-        roomManager.putCard(15,14,nc1);
+        nc1.setBot(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"true\",\"lef\":\"false\"}"));
+        nc1.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"true\",\"lef\":\"false\"}"));
+        nc1.setLef(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc1.rotate(0);
+        roomManager.putCard(14,15,nc1);
+        System.out.println();
 
+        Card nc2 = new Card();
+        nc2.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc2.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc2.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc2.setBot(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc2.rotate(1);
+        roomManager.putCard(16,15,nc2);
+        System.out.println();
+
+        Card nc3 = new Card();
+        nc3.setTop(new Edge(1,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc3.setLef(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc3.setRig(new Edge(3,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc3.setBot(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc3.rotate(0);
+        roomManager.putCard(15,16,nc3);
+        System.out.println();
+
+        Card nc4 = new Card();
+        nc4.setTop(new Edge(1,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
+        nc4.setRig(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc4.setBot(new Edge(3,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc4.setLef(new Edge(4,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
+        nc4.rotate(1);
+        System.out.println();
+
+        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
+        System.out.println(roomManager.getCanPutPositionList(nc4));
+//        roomManager.putCard(13,15,nc4);
+
+        System.out.println();
 
         System.out.println();
     }
@@ -138,9 +171,7 @@ class RoomManagerTest {
         nc1.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         roomManager.putCard(14,15,nc1);
 
-
-
-        System.out.println();
+        
     }
     @Test
     public void startTest2(){

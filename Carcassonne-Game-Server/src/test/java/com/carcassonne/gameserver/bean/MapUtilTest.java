@@ -13,7 +13,41 @@ class MapUtilTest {
     Edge cityEdge = new Edge(1,"city",null);
     Edge roadEdge = new Edge(2,"road",null);
     Edge grassEdge = new Edge(4,"grass",null);
+    ArrayList<Edge> oneCityBottom = new ArrayList<>(){{
+        add(null);
+        add(null);
+        add(cityEdge);
+        add(null);
+    }};
+    ArrayList<Edge> oneCityLeft = new ArrayList<>(){{
+        add(null);
+        add(null);
+        add(null);
+        add(cityEdge);
+    }};
+    ArrayList<Edge> oneCityTop = new ArrayList<>(){{
+        add(cityEdge);
+        add(null);
+        add(null);
+        add(null);
+    }};
+    ArrayList<Edge> twoCity = new ArrayList<>(){
+        {
+            add(cityEdge);
+            add(null);
+            add(cityEdge);
+            add(null);
+        }
+    };
 
+    ArrayList<Edge> threeCity = new ArrayList<>(){
+        {
+            add(cityEdge);
+            add(cityEdge);
+            add(cityEdge);
+            add(null);
+        }
+    };
 
     @Test
     void judgeCardWhereToPut() {
@@ -32,41 +66,7 @@ class MapUtilTest {
     }
     @Test
     public void addEdgeMapTest(){
-        ArrayList<Edge> oneCityBottom = new ArrayList<>(){{
-            add(null);
-            add(null);
-            add(cityEdge);
-            add(null);
-        }};
-        ArrayList<Edge> oneCityLeft = new ArrayList<>(){{
-            add(null);
-            add(null);
-            add(null);
-            add(cityEdge);
-        }};
-        ArrayList<Edge> oneCityTop = new ArrayList<>(){{
-            add(cityEdge);
-            add(null);
-            add(null);
-            add(null);
-        }};
-        ArrayList<Edge> twoCity = new ArrayList<>(){
-            {
-                add(cityEdge);
-                add(null);
-                add(cityEdge);
-                add(null);
-            }
-        };
 
-        ArrayList<Edge> threeCity = new ArrayList<>(){
-            {
-                add(cityEdge);
-                add(cityEdge);
-                add(cityEdge);
-                add(null);
-            }
-        };
 
         /*
 
@@ -151,41 +151,6 @@ class MapUtilTest {
     }
     @Test
     public void mergeBlockTest(){
-        ArrayList<Edge> oneCityBottom = new ArrayList<>(){{
-            add(null);
-            add(null);
-            add(cityEdge);
-            add(null);
-        }};
-        ArrayList<Edge> oneCityLeft = new ArrayList<>(){{
-            add(null);
-            add(null);
-            add(null);
-            add(cityEdge);
-        }};
-        ArrayList<Edge> oneCityTop = new ArrayList<>(){{
-            add(cityEdge);
-            add(null);
-            add(null);
-            add(null);
-        }};
-        ArrayList<Edge> twoCity = new ArrayList<>(){
-            {
-                add(cityEdge);
-                add(null);
-                add(cityEdge);
-                add(null);
-            }
-        };
-
-        ArrayList<Edge> threeCity = new ArrayList<>(){
-            {
-                add(cityEdge);
-                add(cityEdge);
-                add(cityEdge);
-                add(null);
-            }
-        };
 
         /*
 
@@ -242,7 +207,68 @@ class MapUtilTest {
 
         System.out.println("再加一个2，试一下会不会有两个人得分");
         block1.record(ownerId2);
+        System.out.println(block1);
+    }
+    @Test
+    public void mergeBlockTest1(){
+
+        /*
+
+                    1514
+                    1515
+                    1516 1616
+                    1517
+         */
+        Point point1515 = new Point(15,15);
+        Point point1516 = new Point(15,16);
+        Point point1616 = new Point(16,16);
+        Point point1514 = new Point(15,14);
+        Point point1517 = new Point(15,17);
+
+        HashMap<Point,ArrayList<Edge>> edgeMap1 = new HashMap<>();
+        edgeMap1.put(point1514,oneCityBottom);
+        edgeMap1.put(point1515,twoCity);
+
+        edgeMap1.put(point1516,threeCity);
+        HashMap<Point,ArrayList<Edge>> edgeMap2 = new HashMap<>();
+        edgeMap2.put(point1517,oneCityTop);
+        edgeMap2.put(point1616,oneCityLeft);
+
+
+
+        Block block1 = new Block(edgeMap1,"city");
+        Block block2 = new Block(edgeMap2,"city");
+        //定义玩家情况
+        String ownerId1 = "Player1";
+        String ownerId2 = "Player2";
+
+        System.out.println("block1添加新玩家1,block2添加新玩家2\n");
+        block1.record(ownerId1);
+        block2.record(ownerId2);
+        System.out.println("\n"+block1);
+        System.out.println("\n"+block2);
+
+        System.out.println("block2添加新玩家2\n");
+
+        block2.record(ownerId2);
         System.out.println(block2);
+
+        System.out.println("合并了\n");
+        block1.mergeBlock(block2);
+        System.out.println(block1);
+        System.out.println("被合并的是了的康康");
+        System.out.println(block2);
+
+        System.out.println("开始记分了\n");
+        block1.Walk(point1616);
+        block1.caculate();
+
+        System.out.println(block1);
+
+        System.out.println("再加一个2，试一下会不会有两个人得分");
+        block1.record(ownerId2);
+        block1.caculate();
+        System.out.println(block1);
     }
 
 }
