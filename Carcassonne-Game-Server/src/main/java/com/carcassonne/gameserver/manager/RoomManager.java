@@ -51,7 +51,7 @@ public class RoomManager {
 
     public RoomManager(Card[][] cards , ArrayList<Player> nplayers){
         puzzle = new Puzzle(cards);
-        puzzle.addHaveBePutCardsList(new Point(15,15));
+//        puzzle.addHaveBePutCardsList(new Point(15,15));
         players = nplayers;
         for( Player player:players){
             playerScore.put(player.getUserId(),0);
@@ -314,7 +314,11 @@ public class RoomManager {
         if((x-1)>=MIN_X){
             if(thiscard[x-1][y] != null){
                 n++;
+
                 if( ! thiscard[x-1][y].getRig().getType().equals(card.getLef().getType())){
+                    if(x==16&&y==14){
+                        System.out.println("左错");
+                    }
                     YN = false;
                 }
             }
@@ -322,7 +326,11 @@ public class RoomManager {
         if((x+1)<=MAX_X){
             if(thiscard[x+1][y] != null){
                 n++;
+
                 if( ! thiscard[x+1][y].getLef().getType() .equals(card.getRig().getType()) ){
+                    if(x==16&&y==14){
+                    System.out.println("右错");
+                    }
                     YN = false;
                 }
             }
@@ -331,6 +339,9 @@ public class RoomManager {
             if(thiscard[x][y-1] != null){
                 n++;
                 if( ! thiscard[x][y-1].getBot().getType().equals(card.getTop().getType())){
+                    if(x==16&&y==14){
+                        System.out.println(thiscard[x][y-1].getBot().getType()+","+card.getTop().getType());
+                    }
                     YN = false;
                 }
             }
@@ -338,6 +349,9 @@ public class RoomManager {
         if((y+1)>=MAX_Y){
             if(thiscard[x][y+1] != null){
                 n++;
+                if(x==16&&y==14){
+                    System.out.println(thiscard[x][y+1].getTop().getType()+","+card.getBot().getType());
+                }
                 if(! thiscard[x][y+1].getTop().getType().equals(card.getBot().getType())){
                     YN = false;
                 }
@@ -345,6 +359,9 @@ public class RoomManager {
         }
         if(n==0){
             YN = false;
+            if(x==16&&y==14){
+                System.out.println("错"+n);
+            }
         }
         return YN;
     }
@@ -357,7 +374,7 @@ public class RoomManager {
         Point around[] = {new Point(x,y-1),new Point(x,y+1),new Point(x-1,y),new Point(x+1,y)};
 
         for(int i = 0;i < 4;i++){
-            if(!puzzle.getCanPutPositionList().contains(around[i])){
+            if((!puzzle.getCanPutPositionList().contains(around[i]))&&(!puzzle.getHaveBePutCardsList().contains(around[i]))){
                 int ax=around[i].getX();
                 int ay=around[i].getY();
                 if(ax>=MIN_X&&ax<=MAX_X&&ay>=MIN_Y&&ay<=MAX_Y){

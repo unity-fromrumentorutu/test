@@ -48,7 +48,7 @@ class RoomManagerTest {
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
-        roomManager.updateCanPutPositionList(new Point(15,15));
+
         Card nc = new Card();
         nc.setBot(new Edge(1,"City",null));
         nc.setLef(new Edge(2,"Road",null));
@@ -112,6 +112,12 @@ class RoomManagerTest {
         nc1.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"true\",\"lef\":\"false\"}"));
         nc1.setLef(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc1.rotate(0);
+        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
+        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
+        System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
+        System.out.println(roomManager.getPuzzle().getCanPutPositionList());
+        System.out.println("》》》》》》》》》可放坐标1《《《《《《《《《《");
+        System.out.println(roomManager.getCanPutPositionList(nc1));
         roomManager.putCard(14,15,nc1);
         System.out.println();
 
@@ -121,6 +127,12 @@ class RoomManagerTest {
         nc2.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc2.setBot(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc2.rotate(1);
+        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
+        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
+        System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
+        System.out.println(roomManager.getPuzzle().getCanPutPositionList());
+        System.out.println("》》》》》》》》》可放坐标2《《《《《《《《《《");
+        System.out.println(roomManager.getCanPutPositionList(nc2));
         roomManager.putCard(16,15,nc2);
         System.out.println();
 
@@ -130,6 +142,15 @@ class RoomManagerTest {
         nc3.setRig(new Edge(3,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc3.setBot(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc3.rotate(0);
+        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
+        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
+        System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
+        System.out.println(roomManager.getPuzzle().getCanPutPositionList());
+        System.out.println("》》》》》》》》》可放坐标3《《《《《《《《《《");
+        System.out.println(roomManager.getCanPutPositionList(nc3));
+
+        System.out.println("(16.14)"+roomManager.canPutCard(16,14,nc3));
+        System.out.println("(17.15)"+roomManager.canPutCard(17,15,nc3));
         roomManager.putCard(15,16,nc3);
         System.out.println();
 
@@ -139,9 +160,7 @@ class RoomManagerTest {
         nc4.setBot(new Edge(3,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc4.setLef(new Edge(4,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
         nc4.rotate(1);
-        System.out.println();
-
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
+        System.out.println("》》》》》》》》》可放坐标4《《《《《《《《《《");
         System.out.println(roomManager.getCanPutPositionList(nc4));
 //        roomManager.putCard(13,15,nc4);
 
@@ -171,7 +190,7 @@ class RoomManagerTest {
         nc1.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         roomManager.putCard(14,15,nc1);
 
-        
+
     }
     @Test
     public void startTest2(){
