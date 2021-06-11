@@ -1,6 +1,9 @@
 package com.carcassonne.gameserver.bean;
 
+import com.carcassonne.gameserver.util.CardLibraryUtil;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -131,4 +134,11 @@ class CardTest {
         or.setTop(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         or.rotate(1);
     }
+
+    @Test
+    void getLib(){
+        ArrayList<Card> arrayList =CardLibraryUtil.getCardLibrary();
+        System.out.println(arrayList);
+    }
+
 }

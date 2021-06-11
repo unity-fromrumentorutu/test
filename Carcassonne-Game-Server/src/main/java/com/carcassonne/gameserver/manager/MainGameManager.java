@@ -50,7 +50,7 @@ public class MainGameManager {
         }else {
             roomHashMap.get(roomNum).setRoomState("waiting");
         }
-        logger.info(accountNum +"in room "+roomNum+" getReady");
+        logger.info("玩家："+accountNum +" 在房间号： "+roomNum+" 的房间中准备");
         return  state;
     }
 
