@@ -72,18 +72,10 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" +
-                "id=" + id +
-                ", pictureUrl='" + pictureUrl + '\'' +
-                ", topEdgeId='" + topEdgeId + '\'' +
-                ", botEdgeId='" + botEdgeId + '\'' +
-                ", lefEdgeId='" + lefEdgeId + '\'' +
-                ", rigEdgeId='" + rigEdgeId + '\'' +
-                ", count=" + count +
-                ", top=" + top +
+                "top=" + top +
                 ", bot=" + bot +
                 ", lef=" + lef +
                 ", rig=" + rig +
-                ", rotate='" + rotate + '\'' +
                 '}';
     }
 
