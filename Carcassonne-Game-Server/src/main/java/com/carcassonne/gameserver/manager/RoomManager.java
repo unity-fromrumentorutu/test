@@ -877,7 +877,7 @@ public class RoomManager {
                 roadBlock.get(card.getBot().getCityorroad()).start(point);
                 Integer score = roadBlock.get(card.getBot().getCityorroad()).getScoreAll();
                 if(score!=0){
-                    ArrayList<String> playsID = roadBlock.get(card.getTop().getCityorroad()).getPlayerIdArray();
+                    ArrayList<String> playsID = roadBlock.get(card.getBot().getCityorroad()).getPlayerIdArray();
                     for(String ID :playsID){
                         playerScore.put(ID,playerScore.get(ID)+score);
                     }

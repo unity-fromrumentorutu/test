@@ -18,14 +18,14 @@ class RoomManagerTest {
         or.setBot(new Edge(1,"City",null));
         or.setLef(new Edge(2,"Road",null));
         or.setRig(new Edge(3,"Road","left"));
-        or.setTop(new Edge(4,"Glass",null));
+        or.setTop(new Edge(4,"Grass",null));
         cards[15][15]=or;
         Player player1 = new Player("murasame");
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
         Card nc = new Card();
-        nc.setTop(new Edge(4,"Glass",null));
+        nc.setTop(new Edge(4,"Grass",null));
         nc.setRig(new Edge(3,"Road","left"));
         nc.setBot(new Edge(1,"City",null));
         nc.setLef(new Edge(2,"Road",null));
@@ -42,7 +42,7 @@ class RoomManagerTest {
         or.setBot(new Edge(1,"City",null));
         or.setLef(new Edge(2,"Road",null));
         or.setRig(new Edge(3,"Road","left"));
-        or.setTop(new Edge(4,"Glass",null));
+        or.setTop(new Edge(4,"Grass",null));
         cards[15][15]=or;
         Player player1 = new Player("murasame");
         ArrayList<Player> players = new ArrayList<>();
@@ -53,7 +53,7 @@ class RoomManagerTest {
         nc.setBot(new Edge(1,"City",null));
         nc.setLef(new Edge(2,"Road",null));
         nc.setRig(new Edge(3,"Road","left"));
-        nc.setTop(new Edge(4,"Glass",null));
+        nc.setTop(new Edge(4,"Grass",null));
         ArrayList<Point> canPutPositionList = roomManager.getCanPutPositionList(nc);
         System.out.println(canPutPositionList.toString());
     }
@@ -87,7 +87,7 @@ class RoomManagerTest {
         or.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         or.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
         or.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        or.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setBot(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         Player player1 = new Player("murasame");
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
@@ -169,7 +169,7 @@ class RoomManagerTest {
 //        nc2.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
 //        nc2.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"true\",\"lef\":\"false\"}"));
 //        nc2.setBot(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"true\",\"lef\":\"false\"}"));
-//        nc2.setLef(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        nc2.setLef(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
 //        nc2.rotate(2);
 //        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
 //        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
@@ -182,7 +182,7 @@ class RoomManagerTest {
 //
 //        Card nc3 = new Card();
 //        nc3.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        nc3.setRig(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        nc3.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
 //        nc3.setBot(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
 //        nc3.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"true\",\"lef\":\"false\"}"));
 //        nc3.rotate(1);
@@ -196,9 +196,9 @@ class RoomManagerTest {
 //        System.out.println();
 //
 //        Card nc4 = new Card();
-//        nc4.setTop(new Edge(1,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        nc4.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
 //        nc4.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-//        nc4.setBot(new Edge(3,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        nc4.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
 //        nc4.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
 //        nc4.rotate(1);
 //        System.out.println("》》》》》》》》》可放坐标4《《《《《《《《《《");
@@ -217,13 +217,18 @@ class RoomManagerTest {
         or.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         or.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
         or.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        or.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setBot(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         cards[15][15]=or;
         Player player1 = new Player("murasame");
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
         RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
         roomManager.putCard(15,15,or);
+        System.out.println("卡片边所占编号");
+        System.out.println("上："+or.getTop().getType()+or.getTop().getCityorroad());
+        System.out.println("右："+or.getRig().getType()+or.getRig().getCityorroad());
+        System.out.println("下："+or.getBot().getType()+or.getBot().getCityorroad());
+        System.out.println("左："+or.getLef().getType()+or.getLef().getCityorroad());
         HashMap<Integer, Block> unappropriatedCityBlock = roomManager.getUnappropriatedCityBlock();
         roomManager.appropriated(0,"murasame","city");
 
@@ -231,6 +236,9 @@ class RoomManagerTest {
                 0, "false","false","false","false","true","false");
         testPut(roomManager,"1.1","grass","grass","road","road",14,15,
                 3, "false","false","false","false","false","true");
+
+        //2.0出错了，我本地得到的可放位置是正确的，你放了一个不能放的地方，所以后面才错了
+        //TODO 看看这个
         testPut(roomManager,"2.0","city","grass","grass","grass",17,15,
                 2, "false","false","false","false","false","false");
         testPut(roomManager,"2.1","grass","road","grass","road",17,14,
@@ -270,8 +278,8 @@ class RoomManagerTest {
         Card or = new Card();
         or.setBot(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         or.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        or.setRig(new Edge(3,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        or.setTop(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setRig(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setTop(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         Player player1 = new Player("murasame");
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
@@ -280,9 +288,9 @@ class RoomManagerTest {
 
         Card nc1 = new Card();
         nc1.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.setLef(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc1.setLef(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc1.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc1.setBot(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         roomManager.putCard(14,15,nc1);
 
 
@@ -294,8 +302,8 @@ class RoomManagerTest {
         Card or = new Card();
         or.setBot(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         or.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        or.setRig(new Edge(3,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        or.setTop(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setRig(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setTop(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         Player player1 = new Player("murasame");
         ArrayList<Player> players = new ArrayList<>();
         players.add(player1);
@@ -304,16 +312,16 @@ class RoomManagerTest {
 
         Card nc1 = new Card();
         nc1.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.setLef(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc1.setLef(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc1.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        nc1.setBot(new Edge(4,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc1.setBot(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         roomManager.putCard(15,17,nc1);
 
         System.out.println();
 
         Card nc2 = new Card();
         nc2.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"true\",\"lef\":\"false\"}"));
-        nc2.setLef(new Edge(2,"glass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        nc2.setLef(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc2.setRig(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
         nc2.setBot(new Edge(4,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
 
@@ -341,12 +349,20 @@ class RoomManagerTest {
         card.setTop(new Edge(1,TopType,"{\"top\":\"false\",\"rig\":\""+TopRight+"\",\"bot\":\""+TopBottom+"\",\"lef\":\""+TopLeft+"\"}"));
         card.setRig(new Edge(2,RightType,"{\"top\":\"false\",\"rig\":\"false\",\"bot\":\""+RightBottom+"\",\"lef\":\""+RightLeft+"\"}"));
         card.setBot(new Edge(3,BottomType,"{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\""+BottomLeft+"\"}"));
-        card.setLef(new Edge(4,LeftType,"{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        card.setLef(new Edge(4,LeftType,"{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+
+        card.rotate(rotate);
         System.out.println("这张卡是"+card);
+        System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
+        System.out.println(manager.getPuzzle().getCanPutPositionList());
         System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
         System.out.println(manager.getCanPutPositionList(card));
-        card.rotate(rotate);
         System.out.println("放在("+PointX+","+PointY+")");
         manager.putCard(PointX,PointY,card);
+        System.out.println("卡片边所占编号");
+        System.out.println("上："+card.getTop().getType()+card.getTop().getCityorroad());
+        System.out.println("右："+card.getRig().getType()+card.getRig().getCityorroad());
+        System.out.println("下："+card.getBot().getType()+card.getBot().getCityorroad());
+        System.out.println("左："+card.getLef().getType()+card.getLef().getCityorroad());
     }
 }
