@@ -303,25 +303,25 @@ public class RoomManager {
 
 
     //遍历更改Block中所有边的所属
-    public void updateBlockAllEdgeOwn(Card[][] map,Block block,int own,int p){
+    public void updateBlockAllEdgeOwn(Card[][] map,Block block,int own,int p,String type){
         ArrayList<Point> points = new ArrayList<>();
         points = block.getPoints();
 //        System.out.println(points);
 
         for(Point point:points){
-            if(map[point.getX()][point.getY()].getTop().getCityorroad()==p){
+            if((map[point.getX()][point.getY()].getTop().getCityorroad()==p)&&(map[point.getX()][point.getY()].getTop().getType()==type)){
                 map[point.getX()][point.getY()].setTopRoadOrCity(own);
 //                System.out.println("上变了"+map[point.getX()][point.getY()].getTop().getCityorroad());
             }
-            if(map[point.getX()][point.getY()].getRig().getCityorroad()==p){
+            if((map[point.getX()][point.getY()].getRig().getCityorroad()==p)&&(map[point.getX()][point.getY()].getRig().getType()==type)){
                 map[point.getX()][point.getY()].setRigRoadOrCity(own);
 //                System.out.println("右变了"+map[point.getX()][point.getY()].getRig().getCityorroad());
             }
-            if(map[point.getX()][point.getY()].getBot().getCityorroad()==p){
+            if((map[point.getX()][point.getY()].getBot().getCityorroad()==p)&&(map[point.getX()][point.getY()].getBot().getType()==type)){
                 map[point.getX()][point.getY()].setBotRoadOrCity(own);
 //                System.out.println("下变了"+map[point.getX()][point.getY()].getBot().getCityorroad());
             }
-            if(map[point.getX()][point.getY()].getLef().getCityorroad()==p){
+            if((map[point.getX()][point.getY()].getLef().getCityorroad()==p)&&(map[point.getX()][point.getY()].getLef().getType()==type)){
                 map[point.getX()][point.getY()].setLefRoadOrCity(own);
 //                System.out.println("左变了"+map[point.getX()][point.getY()].getLef().getCityorroad());
             }
@@ -335,13 +335,13 @@ public class RoomManager {
      * 函数执行后给出某一位置是否能放牌
      */
     public Boolean canPutCard(Integer x,Integer y,Card card){   //TODO 这里有问题
-        int n = 0;//有几个临边有放卡片
+//        int n = 0;//有几个临边有放卡片
         boolean YN = true;//能否放
         Card[][] thiscard = puzzle.getmPuzzle();
         //左边没到左边界，左边有牌->左边牌的右边界判断能放？
         if((x-1)>=MIN_X){
             if(thiscard[x-1][y] != null){
-                n++;
+//                n++;
 
                 if( ! thiscard[x-1][y].getRig().getType().equals(card.getLef().getType())){
 
@@ -351,7 +351,7 @@ public class RoomManager {
         }
         if((x+1)<=MAX_X){
             if(thiscard[x+1][y] != null){
-                n++;
+//                n++;
 
                 if( ! thiscard[x+1][y].getLef().getType() .equals(card.getRig().getType()) ){
 
@@ -361,7 +361,7 @@ public class RoomManager {
         }
         if((y-1)>=MIN_Y){
             if(thiscard[x][y-1] != null){
-                n++;
+//                n++;
                 if( ! thiscard[x][y-1].getBot().getType().equals(card.getTop().getType())){
                     if(x==16&&y==14){
                         System.out.println(thiscard[x][y-1].getBot().getType()+","+card.getTop().getType());
@@ -373,16 +373,16 @@ public class RoomManager {
         if((y+1)<=MAX_Y){
             if(thiscard[x][y+1] != null){
 
-                n++;
+//                n++;
                 if(! thiscard[x][y+1].getTop().getType().equals(card.getBot().getType())){
                     YN = false;
                 }
             }
         }
-        if(n==0){
-            YN = false;
-
-        }
+//        if(n==0){
+//            YN = false;
+//
+//        }
         return YN;
     }
 
@@ -430,7 +430,7 @@ public class RoomManager {
         allCanPutPositionList.put(2,getCanPutPositionList(tmp));//180°
         tmp.rotate(1);
         allCanPutPositionList.put(3,getCanPutPositionList(tmp));//270°
-
+        tmp.rotate(1);
         return allCanPutPositionList;
     }
 
@@ -545,7 +545,7 @@ public class RoomManager {
                     cityBlock.get(nmap[x][y+1].getTop().getCityorroad()).addEdgeMap(point,card.getBot(),2);
 //                    city.get(nmap[x][y+1].getTop().getCityorroad()).add(card);
 //                    cityEdge.get(nmap[x][y+1].getTop().getCityorroad()).add(card.getBot());
-                }else if(card.getRig().getType().equals("road")){
+                }else if(card.getBot().getType().equals("road")){
                     card.setBotRoadOrCity(nmap[x][y+1].getTop().getCityorroad());
                     roadBlock.get(nmap[x][y+1].getTop().getCityorroad()).addEdgeMap(point,card.getBot(),2);
 //                    road.get(nmap[x][y+1].getTop().getCityorroad()).add(card);
@@ -637,7 +637,7 @@ public class RoomManager {
                 //TODO 我人麻了
                 if(card.getTop().getCityorroad()!=card.getRig().getCityorroad()){
                     int tmp = card.getRig().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getRig().getCityorroad()),card.getTop().getCityorroad(),card.getRig().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getRig().getCityorroad()),card.getTop().getCityorroad(),card.getRig().getCityorroad(),"city");
                     cityBlock.get(card.getTop().getCityorroad()).mergeBlock(cityBlock.get(tmp));
 
 
@@ -649,7 +649,7 @@ public class RoomManager {
             }else if(cardTopJson.get("bot").equals("true")){
                 if(card.getTop().getCityorroad()!=card.getBot().getCityorroad()){
                     int tmp = card.getBot().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getBot().getCityorroad()),card.getTop().getCityorroad(),card.getBot().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getBot().getCityorroad()),card.getTop().getCityorroad(),card.getBot().getCityorroad(),"city");
                     cityBlock.get(card.getTop().getCityorroad()).mergeBlock(cityBlock.get(tmp));
 
 
@@ -661,7 +661,7 @@ public class RoomManager {
             }else if(cardTopJson.get("lef").equals("true")){
                 if(card.getTop().getCityorroad()!=card.getLef().getCityorroad()){
                     int tmp = card.getLef().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getLef().getCityorroad()),card.getTop().getCityorroad(),card.getLef().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getLef().getCityorroad()),card.getTop().getCityorroad(),card.getLef().getCityorroad(),"city");
                     cityBlock.get(card.getTop().getCityorroad()).mergeBlock(cityBlock.get(tmp));
 
 
@@ -675,7 +675,7 @@ public class RoomManager {
             if(cardTopJson.get("rig").equals("true")){
                 if(card.getTop().getCityorroad()!=card.getRig().getCityorroad()){
                     int tmp = card.getRig().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getRig().getCityorroad()),card.getTop().getCityorroad(),card.getRig().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getRig().getCityorroad()),card.getTop().getCityorroad(),card.getRig().getCityorroad(),"road");
                     roadBlock.get(card.getTop().getCityorroad()).mergeBlock(roadBlock.get(tmp));
 
 
@@ -687,7 +687,7 @@ public class RoomManager {
             }else if(cardTopJson.get("bot").equals("true")){
                 if(card.getTop().getCityorroad()!=card.getBot().getCityorroad()){
                     int tmp = card.getBot().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getBot().getCityorroad()),card.getTop().getCityorroad(),card.getBot().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getBot().getCityorroad()),card.getTop().getCityorroad(),card.getBot().getCityorroad(),"road");
                     roadBlock.get(card.getTop().getCityorroad()).mergeBlock(roadBlock.get(tmp));
 
 
@@ -700,7 +700,7 @@ public class RoomManager {
 
                 if(card.getTop().getCityorroad()!=card.getLef().getCityorroad()){
                     int tmp = card.getLef().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getLef().getCityorroad()),card.getTop().getCityorroad(),card.getLef().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getLef().getCityorroad()),card.getTop().getCityorroad(),card.getLef().getCityorroad(),"road");
                     roadBlock.get(card.getTop().getCityorroad()).mergeBlock(roadBlock.get(tmp));
 
 
@@ -719,7 +719,7 @@ public class RoomManager {
                  if(card.getRig().getCityorroad()!=card.getBot().getCityorroad()){
 
                      int tmp = card.getBot().getCityorroad();
-                     updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getBot().getCityorroad()),card.getRig().getCityorroad(),card.getBot().getCityorroad());
+                     updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getBot().getCityorroad()),card.getRig().getCityorroad(),card.getBot().getCityorroad(),"city");
                      cityBlock.get(card.getRig().getCityorroad()).mergeBlock(cityBlock.get(tmp));
 
 
@@ -732,7 +732,7 @@ public class RoomManager {
 
                  if(card.getRig().getCityorroad()!=card.getLef().getCityorroad()){
                      int tmp = card.getLef().getCityorroad();
-                     updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getLef().getCityorroad()),card.getRig().getCityorroad(),card.getLef().getCityorroad());
+                     updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getLef().getCityorroad()),card.getRig().getCityorroad(),card.getLef().getCityorroad(),"city");
                      cityBlock.get(card.getRig().getCityorroad()).mergeBlock(cityBlock.get(tmp));
 
 
@@ -746,7 +746,7 @@ public class RoomManager {
             if(cardRightJson.get("bot").equals("true")){
                 if(card.getRig().getCityorroad()!=card.getBot().getCityorroad()){
                     int tmp = card.getBot().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getBot().getCityorroad()),card.getRig().getCityorroad(),card.getBot().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getBot().getCityorroad()),card.getRig().getCityorroad(),card.getBot().getCityorroad(),"road");
                     roadBlock.get(card.getRig().getCityorroad()).mergeBlock(roadBlock.get(tmp));
 
 
@@ -760,7 +760,7 @@ public class RoomManager {
                 if(card.getRig().getCityorroad()!=card.getLef().getCityorroad()){
 //                    System.out.println("SBPC"+roadBlock.get(card.getLef().getCityorroad()).getPoints());
                     int tmp = card.getLef().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getLef().getCityorroad()),card.getRig().getCityorroad(),card.getLef().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getLef().getCityorroad()),card.getRig().getCityorroad(),card.getLef().getCityorroad(),"road");
                     roadBlock.get(card.getRig().getCityorroad()).mergeBlock(roadBlock.get(tmp));
 //                    System.out.println(card.getRig().getCityorroad()+"吃了"+card.getLef().getCityorroad());
 
@@ -779,7 +779,7 @@ public class RoomManager {
             if(cardBottomJson.get("lef").equals("true")){
                 if(card.getBot().getCityorroad()!=card.getLef().getCityorroad()){
                     int tmp = card.getLef().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getLef().getCityorroad()),card.getBot().getCityorroad(),card.getLef().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getLef().getCityorroad()),card.getBot().getCityorroad(),card.getLef().getCityorroad(),"city");
                     cityBlock.get(card.getBot().getCityorroad()).mergeBlock(cityBlock.get(tmp));
 
 
@@ -794,7 +794,7 @@ public class RoomManager {
             if(cardBottomJson.get("lef").equals("true")){
                 if(card.getBot().getCityorroad()!=card.getLef().getCityorroad()){
                     int tmp = card.getLef().getCityorroad();
-                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getLef().getCityorroad()),card.getBot().getCityorroad(),card.getLef().getCityorroad());
+                    updateBlockAllEdgeOwn(nmap,roadBlock.get(card.getLef().getCityorroad()),card.getBot().getCityorroad(),card.getLef().getCityorroad(),"road");
                     roadBlock.get(card.getBot().getCityorroad()).mergeBlock(roadBlock.get(tmp));
 
 
