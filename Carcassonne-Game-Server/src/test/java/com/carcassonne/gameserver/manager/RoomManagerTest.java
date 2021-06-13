@@ -208,7 +208,7 @@ class RoomManagerTest {
 //        System.out.println();
 //
 
-        
+
     }
     @Test
     public void dongTest(){
