@@ -65,17 +65,15 @@ public class RoomManager {
     }
 
     public Boolean playerAction(String accountNum,Integer putX,Integer putY,Integer rotation,Integer occupyBlockNum,String blockType){
-
-        JSONArray lib = new JSONArray();
-        for (int i=0; i<cardLibrary.length;i++){
-            lib.add(cardLibrary[i].toJsonString());
+        JSONArray jsonArray = new JSONArray();
+        for (int i=0;i<cardLibrary.length;i++){
+            jsonArray.add(cardLibrary[i].toJsonString());
         }
-        System.out.println(lib.toJSONString());
-
-
+        System.out.println(jsonArray);
 
         try {
             logger.info("====> 回合数为"+ nowTurnNum +", 玩家序号"+ nowPlayerNum +" 尝试放置坐标(X,Y,R)=("+putX+","+putY+","+rotation+") ，占领：否 ， 手牌URL："+ players.get(nowPlayerNum).getHand().getPictureUrl());
+            logger.info("     手牌信息："+players.get(nowPlayerNum).getHand().toString());
             if(nowTurnNum == 0 ) nowTurnNum ++;
             if(players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
                 lastPlayerOpInfo.clear();
@@ -103,7 +101,7 @@ public class RoomManager {
             logger.info("~~~~ 本次放置成功！");
             return  true;
         }catch (Exception e){
-            logger.info("#### playerAction函数出错, 回合数" + nowTurnNum +" 玩家序号" + nowPlayerNum + "切换下一玩家");
+            logger.info("#### playerAction函数出错, 回合数" + nowTurnNum +" 玩家序号" + nowPlayerNum + "切换下一玩家"+"  错误信息："+e.getMessage());
             if(nowPlayerNum == players.size() -1){  //出错先切换玩家
                 nowTurnNum++;
                 nowPlayerNum = 0;
