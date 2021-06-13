@@ -6,6 +6,15 @@ public class Point {
     private int x;
     private int y;
 
+    public int getR() {
+        return r;
+    }
+
+    public void setR(int r) {
+        this.r = r;
+    }
+
+    private int r;
     @Override
     public boolean equals(Object o) {
 

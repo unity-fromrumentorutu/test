@@ -1,11 +1,15 @@
 package com.carcassonne.gameserver.manager;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.carcassonne.gameserver.bean.*;
+import com.carcassonne.gameserver.util.CardLibraryUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -364,5 +368,47 @@ class RoomManagerTest {
         System.out.println("右："+card.getRig().getType()+card.getRig().getCityorroad());
         System.out.println("下："+card.getBot().getType()+card.getBot().getCityorroad());
         System.out.println("左："+card.getLef().getType()+card.getLef().getCityorroad());
+    }
+    @Test
+    public void gameTest(){
+        ArrayList<Card> cardsArray = CardLibraryUtil.getCardLibrary();
+
+        Card[][] cards = new Card[31][31];
+        Card or = new Card();
+        or.setBot(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setLef(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setRig(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setTop(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        Player player1 = new Player("murasame");
+        Player player2 = new Player("player2");
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+        RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
+        roomManager.putCard(15,15,or);
+
+        for(int i=0;i<10;i++){
+            HashMap<Integer,ArrayList<Point>> hashMap = new HashMap<>();
+            hashMap = roomManager.getAllCanPutPositionList(cardsArray.get(i));
+
+            ArrayList<Point> pointArray = new ArrayList<>();
+            for(int j=0;j<4;j++){
+                for(int k=0;k<hashMap.get(j).size();k++){
+                    Point point = hashMap.get(j).get(k);
+                    point.setR(j);
+                    pointArray.add(point);
+                }
+            }
+
+
+            Collections.shuffle(pointArray);
+            System.out.println("当前卡牌"+cardsArray.get(i));
+
+            Point point = pointArray.get(0);
+            Card card = cardsArray.get(i);
+            card.rotate(point.getR());
+            roomManager.putCard(point.getX(),point.getY(),card);
+            System.out.println("放在了"+point+point.getR() );
+        }
     }
 }
