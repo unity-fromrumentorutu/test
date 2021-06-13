@@ -227,99 +227,41 @@ class RoomManagerTest {
         HashMap<Integer, Block> unappropriatedCityBlock = roomManager.getUnappropriatedCityBlock();
         roomManager.appropriated(0,"murasame","city");
 
-        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
-        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
-        Card cardLR = new Card();
-        cardLR.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        cardLR.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        cardLR.rotate(0);
-        System.out.println("》》》》》》》》》回合0《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        System.out.println(roomManager.getCanPutPositionList(cardLR));
-        roomManager.putCard(16,15,cardLR);
-        System.out.println();
-        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
-        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
-        System.out.println("》》》》》》》》》回合1.1《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        Card cardLB = new Card();
-        cardLB.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLB.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLB.setBot(new Edge(3,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        cardLB.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"true\",\"lef\":\"false\"}"));
-        System.out.println(roomManager.getCanPutPositionList(cardLB));
-        cardLB.rotate(3);
-        System.out.println(cardLB);
-        roomManager.putCard(14,15,cardLB);
-        System.out.println("》》》》》》》》》回合2.0《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        Card cardTC = new Card();
-        cardTC.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTC.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTC.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTC.setLef(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        System.out.println(roomManager.getCanPutPositionList(cardTC));
-        cardTC.rotate(2);
-        roomManager.putCard(17,15,cardTC);
-        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
-        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
-        System.out.println("》》》》》》》》》回合2.1《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        Card cardLR1 = new Card();
-        cardLR1.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR1.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        cardLR1.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR1.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"true\",\"lef\":\"false\"}"));
-        System.out.println(roomManager.getCanPutPositionList(cardLR1));
-        cardLR1.rotate(3);
-        roomManager.putCard(17,14,cardLR1);
-        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
-        System.out.println(roomManager.getPuzzle().getHaveBePutCardsList());
-        System.out.println("》》》》》》》》》回合3.0《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        Card cardTLC = new Card();
-        cardTLC.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        cardTLC.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTLC.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTLC.setLef(new Edge(4,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        System.out.println(roomManager.getCanPutPositionList(cardTLC));
-        cardTLC.rotate(3);
-        roomManager.putCard(13,15,cardTLC);
-        System.out.println("》》》》》》》》》回合3.1《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        Card cardLR2 = new Card();
-        cardLR2.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR2.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        cardLR2.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR2.setLef(new Edge(4,"road","{\"top\":\"true\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        System.out.println(roomManager.getCanPutPositionList(cardLR2));
-        cardTLC.rotate(2);
-        roomManager.putCard(14,14,cardTLC);
+        testPut(roomManager,"0","grass","road","grass","road",16,15,
+                0, "false","false","false","false","true","false");
+        testPut(roomManager,"1.1","grass","grass","road","road",14,15,
+                3, "false","false","false","false","false","true");
+        testPut(roomManager,"2.0","city","grass","grass","grass",17,15,
+                2, "false","false","false","false","false","false");
+        testPut(roomManager,"2.1","grass","road","grass","road",17,14,
+                3, "false","false","false","false","true","false");
+        testPut(roomManager,"3.0","city","grass","grass","city",13,15,
+                3, "false","false","true","false","false","false");
+        testPut(roomManager,"3.1","grass","road","grass","road",14,14,
+                2, "false","false","false","false","true","false");
 
-        System.out.println("》》》》》》》》》回合4.0《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        Card cardTBC = new Card();
-        cardTBC.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTBC.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTBC.setBot(new Edge(3,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardTBC.setLef(new Edge(4,"grass","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        System.out.println(roomManager.getCanPutPositionList(cardTBC));
-        cardTBC.rotate(3);
-        roomManager.putCard(17,16,cardTBC);
-
-
-        System.out.println("》》》》》》》》》回合4.1《《《《《《《《《《");
-        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-        Card cardLR3 = new Card();
-        cardLR3.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR3.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR3.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        cardLR3.setLef(new Edge(4,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        System.out.println(roomManager.getCanPutPositionList(cardLR3));
-        cardLR3.rotate(0);
-        roomManager.putCard(13,15,cardLR3);
+//        System.out.println("》》》》》》》》》回合4.0《《《《《《《《《《");
+//        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
+//        Card cardTBC = new Card();
+//        cardTBC.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        cardTBC.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        cardTBC.setBot(new Edge(3,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        cardTBC.setLef(new Edge(4,"grass","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        System.out.println(roomManager.getCanPutPositionList(cardTBC));
+//        cardTBC.rotate(3);
+//        roomManager.putCard(17,16,cardTBC);
+//
+//
+//        System.out.println("》》》》》》》》》回合4.1《《《《《《《《《《");
+//        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
+//        Card cardLR3 = new Card();
+//        cardLR3.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        cardLR3.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        cardLR3.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        cardLR3.setLef(new Edge(4,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+//        System.out.println(roomManager.getCanPutPositionList(cardLR3));
+//        cardLR3.rotate(0);
+//        roomManager.putCard(13,15,cardLR3);
     }
     @Test
     public void WalkTest(){
@@ -387,11 +329,14 @@ class RoomManagerTest {
      * @param BottomType
      * @param LeftType
      * @param rotate
+     *testPut(roomManager,"0","grass","road","grass","road",16,15,0, "false","false","false","false","false","false");
      *
      */
     public void testPut(RoomManager manager,String huiheshu,String TopType,String RightType,String BottomType,String LeftType,int PointX,int PointY,
                         int rotate,String TopRight,String TopBottom,String TopLeft,String RightBottom,String RightLeft,String BottomLeft){
         System.out.println("》》》》》》》》》回合"+huiheshu+"《《《《《《《《《《");
+        System.out.println("》》》》》》》》》已经放的《《《《《《《《《《");
+        System.out.println(manager.getPuzzle().getHaveBePutCardsList());
         Card card = new Card();
         card.setTop(new Edge(1,TopType,"{\"top\":\"false\",\"rig\":\""+TopRight+"\",\"bot\":\""+TopBottom+"\",\"lef\":\""+TopLeft+"\"}"));
         card.setRig(new Edge(2,RightType,"{\"top\":\"false\",\"rig\":\"false\",\"bot\":\""+RightBottom+"\",\"lef\":\""+RightLeft+"\"}"));
@@ -401,6 +346,7 @@ class RoomManagerTest {
         System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
         System.out.println(manager.getCanPutPositionList(card));
         card.rotate(rotate);
+        System.out.println("放在("+PointX+","+PointY+")");
         manager.putCard(PointX,PointY,card);
     }
 }
