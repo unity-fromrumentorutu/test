@@ -84,7 +84,7 @@ public class Playingcontroller {
         }
 
         try {
-            if (roomService.fanCard(roomNum,accountNum,putX,putY,rotation,occupyBlock,blockType) == false ) {
+            if (roomService.fanCard(roomNum,accountNum,putX,putY,rotation) == false ) {
                 result.put("code",200);
                 result.put("message","OK, request successfully");
                 return result;

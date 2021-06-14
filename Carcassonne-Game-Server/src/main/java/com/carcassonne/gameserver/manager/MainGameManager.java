@@ -120,11 +120,15 @@ public class MainGameManager {
 
     }
 
-    public Boolean fanCard(Integer roomNum,String accountNum,Integer putX,Integer putY,Integer rotation,Integer occupyBlockNum,String blockType){
+    public Boolean fanCard(Integer roomNum,String accountNum,Integer putX,Integer putY,Integer rotation){
         return roomHashMap.get(roomNum).getRoomManager()
-                .playerAction(accountNum,putX,putY,rotation,occupyBlockNum,blockType);
+                .playerActionPutCard(accountNum,putX,putY,rotation);
     }
 
+    public Boolean occupy(Integer roomNum,String accountNum,Integer occupyBlockNum,String blockType){
+        return roomHashMap.get(roomNum).getRoomManager().playerActionOccupy(accountNum,occupyBlockNum,blockType);
+
+    }
     public void addMsg(Integer roomNum , String accountNum , String content){
         roomHashMap.get(roomNum).addMsg(accountNum,content);
     }

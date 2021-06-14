@@ -1,0 +1,64 @@
+2021-06-13 11:34:23.910 [main] INFO  com.carcassonne.gameserver.GameserverApplication - Starting GameserverApplication using Java 11.0.6 on DESKTOP-JMIJ95C with PID 14200 (F:\0My_Data\软件工程实践\github\Carcassonne-Game-Server\target\classes started by chen in F:\0My_Data\软件工程实践\github\Carcassonne-Game-Server)
+2021-06-13 11:34:23.914 [main] INFO  com.carcassonne.gameserver.GameserverApplication - No active profile set, falling back to default profiles: default
+2021-06-13 11:34:24.534 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-06-13 11:34:24.537 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-06-13 11:34:24.560 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2021-06-13 11:34:24.720 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.carcassonne.gameserver.configuration.RedisConfig$$EnhancerBySpringCGLIB$$ce5b740] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:34:24.906 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 90 (http)
+2021-06-13 11:34:24.914 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-90"]
+2021-06-13 11:34:24.914 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-06-13 11:34:24.914 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-06-13 11:34:24.998 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-06-13 11:34:24.998 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1054 ms
+2021-06-13 11:34:25.689 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-06-13 11:34:25.873 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-90"]
+2021-06-13 11:34:25.886 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 90 (http) with context path ''
+2021-06-13 11:34:25.894 [main] INFO  com.carcassonne.gameserver.GameserverApplication - Started GameserverApplication in 2.408 seconds (JVM running for 2.955)
+2021-06-13 11:34:38.650 [http-nio-90-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-06-13 11:34:38.650 [http-nio-90-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-06-13 11:34:38.651 [http-nio-90-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2021-06-13 11:34:38.674 [http-nio-90-exec-1] INFO  c.c.gameserver.controller.OfflineController - /offline/userLogin api start  ======> requestBody:{"password":"111","accountNum":"1072876025@qq.com"}
+2021-06-13 11:34:38.720 [http-nio-90-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - test - Starting...
+2021-06-13 11:34:39.275 [http-nio-90-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - test - Start completed.
+2021-06-13 11:34:55.607 [main] INFO  com.carcassonne.gameserver.GameserverApplication - Starting GameserverApplication using Java 11.0.6 on DESKTOP-JMIJ95C with PID 9036 (F:\0My_Data\软件工程实践\github\Carcassonne-Game-Server\target\classes started by chen in F:\0My_Data\软件工程实践\github\Carcassonne-Game-Server)
+2021-06-13 11:34:55.610 [main] INFO  com.carcassonne.gameserver.GameserverApplication - No active profile set, falling back to default profiles: default
+2021-06-13 11:34:56.029 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-06-13 11:34:56.031 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-06-13 11:34:56.049 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 10 ms. Found 0 Redis repository interfaces.
+2021-06-13 11:34:56.171 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.carcassonne.gameserver.configuration.RedisConfig$$EnhancerBySpringCGLIB$$97b295fc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:34:56.313 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 90 (http)
+2021-06-13 11:34:56.318 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-90"]
+2021-06-13 11:34:56.318 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2021-06-13 11:34:56.318 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-06-13 11:34:56.387 [main] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2021-06-13 11:34:56.387 [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 752 ms
+2021-06-13 11:34:56.824 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-06-13 11:34:56.978 [main] INFO  org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-90"]
+2021-06-13 11:34:56.989 [main] INFO  o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 90 (http) with context path ''
+2021-06-13 11:34:56.997 [main] INFO  com.carcassonne.gameserver.GameserverApplication - Started GameserverApplication in 1.677 seconds (JVM running for 2.118)
+2021-06-13 11:34:59.981 [http-nio-90-exec-1] INFO  o.a.c.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-06-13 11:34:59.982 [http-nio-90-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2021-06-13 11:34:59.982 [http-nio-90-exec-1] INFO  org.springframework.web.servlet.DispatcherServlet - Completed initialization in 0 ms
+2021-06-13 11:35:00.001 [http-nio-90-exec-1] INFO  c.c.gameserver.controller.OfflineController - /offline/userLogin api start  ======> requestBody:{"password":"111","accountNum":"1072876025@qq.com"}
+2021-06-13 11:35:00.030 [http-nio-90-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - test - Starting...
+2021-06-13 11:35:00.462 [http-nio-90-exec-1] INFO  com.zaxxer.hikari.HikariDataSource - test - Start completed.
+2021-06-13 11:35:00.803 [http-nio-90-exec-1] INFO  c.c.gameserver.controller.OfflineController - redis ===> new record :User{id=4, accountNum='1072876025@qq.com', password='111', sex='女', level='0', nickname='cmyyy', headPictureURL='xxx.xxx', state='null', token='eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoidXNlciIsImV4cCI6MTYyMzU3NjkwMCwiaWF0IjoxNjIzNTU1MzAwLCJ1c2VybmFtZSI6IjEwNzI4NzYwMjVAcXEuY29tIn0.bOCKNadnyZehonOAoLgHDhjBuv80Hgq2ehdr-60BL5s'}
+2021-06-13 11:35:00.803 [http-nio-90-exec-1] INFO  c.c.gameserver.controller.OfflineController - /offline/userLogin api end with 200 , User{id=4, accountNum='1072876025@qq.com', password='111', sex='女', level='0', nickname='cmyyy', headPictureURL='xxx.xxx', state='null', token='eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoidXNlciIsImV4cCI6MTYyMzU3NjkwMCwiaWF0IjoxNjIzNTU1MzAwLCJ1c2VybmFtZSI6IjEwNzI4NzYwMjVAcXEuY29tIn0.bOCKNadnyZehonOAoLgHDhjBuv80Hgq2ehdr-60BL5s'} Login successfully 
+2021-06-13 11:35:01.383 [http-nio-90-exec-2] INFO  c.c.gameserver.controller.OfflineController - /offline/userLogin api start  ======> requestBody:{"password":"111","accountNum":"1072876026@qq.com"}
+2021-06-13 11:35:01.418 [http-nio-90-exec-2] INFO  c.c.gameserver.controller.OfflineController - redis ===> new record :User{id=8, accountNum='1072876026@qq.com', password='111', sex='男', level='0', nickname='gcy', headPictureURL='xxx.xxx', state='null', token='eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoidXNlciIsImV4cCI6MTYyMzU3NjkwMSwiaWF0IjoxNjIzNTU1MzAxLCJ1c2VybmFtZSI6IjEwNzI4NzYwMjZAcXEuY29tIn0.8rvJbXcH2lJO6MLBaboGygtjHxcRMJxwEj3Mhu8iRP8'}
+2021-06-13 11:35:01.418 [http-nio-90-exec-2] INFO  c.c.gameserver.controller.OfflineController - /offline/userLogin api end with 200 , User{id=8, accountNum='1072876026@qq.com', password='111', sex='男', level='0', nickname='gcy', headPictureURL='xxx.xxx', state='null', token='eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoidXNlciIsImV4cCI6MTYyMzU3NjkwMSwiaWF0IjoxNjIzNTU1MzAxLCJ1c2VybmFtZSI6IjEwNzI4NzYwMjZAcXEuY29tIn0.8rvJbXcH2lJO6MLBaboGygtjHxcRMJxwEj3Mhu8iRP8'} Login successfully 
+2021-06-13 11:35:02.053 [http-nio-90-exec-3] INFO  c.c.gameserver.controller.WanderController - userCreateRoom控制器：牌库初始完毕
+2021-06-13 11:35:02.062 [http-nio-90-exec-3] INFO  c.c.gameserver.controller.WanderController - 1072876025@qq.comcreate room , info :{"roomPassword":"111","code":200,"roomNum":"916228","state":"waitStart","message":"OK, Create room successfully","playerRole":"master","roomName":"myRoom"}
+2021-06-13 11:35:02.584 [http-nio-90-exec-4] INFO  c.c.gameserver.controller.WanderController - 1072876026@qq.comJoin  room successfully , info :{"code":200,"state":"waitStart","message":"OK, 1072876026@qq.comJoin  room successfully","playerRole":"member"}
+2021-06-13 11:35:03.300 [http-nio-90-exec-5] INFO  com.carcassonne.gameserver.manager.MainGameManager - 玩家：1072876025@qq.com 在房间号： 916228 的房间中准备
+2021-06-13 11:35:04.016 [http-nio-90-exec-6] INFO  com.carcassonne.gameserver.manager.RoomManager - 游戏开始[User{id=null, accountNum='1072876025@qq.com', password='111', sex='女', level='0', nickname='cmyyy', headPictureURL='xxx.xxx', state='null', token='null'}, User{id=null, accountNum='1072876026@qq.com', password='111', sex='男', level='0', nickname='gcy', headPictureURL='xxx.xxx', state='null', token='null'}]
+2021-06-13 11:35:04.017 [http-nio-90-exec-6] INFO  com.carcassonne.gameserver.manager.MainGameManager - 玩家：1072876026@qq.com 在房间号： 916228 的房间中准备
+2021-06-13 11:37:59.615 [main] INFO  c.c.gameserver.GameserverApplicationTests - Starting GameserverApplicationTests using Java 11.0.6 on DESKTOP-JMIJ95C with PID 7332 (started by chen in F:\0My_Data\软件工程实践\github\Carcassonne-Game-Server)
+2021-06-13 11:37:59.617 [main] INFO  c.c.gameserver.GameserverApplicationTests - No active profile set, falling back to default profiles: default
+2021-06-13 11:38:00.134 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode!
+2021-06-13 11:38:00.136 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2021-06-13 11:38:00.155 [main] INFO  o.s.d.r.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 11 ms. Found 0 Redis repository interfaces.
+2021-06-13 11:38:00.364 [main] INFO  o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisConfig' of type [com.carcassonne.gameserver.configuration.RedisConfig$$EnhancerBySpringCGLIB$$f31efde] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2021-06-13 11:38:01.302 [main] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2021-06-13 11:38:01.647 [main] INFO  c.c.gameserver.GameserverApplicationTests - Started GameserverApplicationTests in 2.315 seconds (JVM running for 3.199)
+2021-06-13 11:38:01.965 [SpringContextShutdownHook] INFO  o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'

@@ -46,13 +46,14 @@ public class RoomManager {
     private Integer nowTurnNum = 0 ;
     private Integer nowPlayerNum = 0;
     private Integer nowLibNum = 0 ;
-    private JSONObject lastPlayerOpInfo = null;
+    private JSONObject lastPlayerOpInfo;
 
 
     public RoomManager(Card[][] cards , ArrayList<Player> nplayers){
         puzzle = new Puzzle(cards);
 //        puzzle.addHaveBePutCardsList(new Point(15,15));
         players = nplayers;
+        lastPlayerOpInfo = new JSONObject();
         for( Player player:players){
             playerScore.put(player.getUserId(),0);
             playerIds.add(player.getUserId());
@@ -64,7 +65,7 @@ public class RoomManager {
         activePlayerNum = 0;
     }
 
-    public Boolean playerAction(String accountNum,Integer putX,Integer putY,Integer rotation,Integer occupyBlockNum,String blockType){
+    public Boolean playerActionPutCard(String accountNum,Integer putX,Integer putY,Integer rotation){
         JSONArray jsonArray = new JSONArray();
         for (int i=0;i<cardLibrary.length;i++){
             jsonArray.add(cardLibrary[i].toJsonString());
@@ -85,9 +86,7 @@ public class RoomManager {
                 Card card = players.get(nowPlayerNum).getHand();
                 card.rotate(rotation);
                 putCard(putX,putY,card);
-                if(occupyBlockNum != 999){
-                    appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
-                }
+
 
                 if(nowPlayerNum == players.size() -1){
                     nowTurnNum++;
@@ -113,9 +112,21 @@ public class RoomManager {
 
     }
 
+    public Boolean playerActionOccupy(String accountNum,Integer occupyBlockNum,String blockType){
+        try {
+            if(occupyBlockNum != 999 && players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
+                appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
+            }
+            return false;
+        }catch (Exception e){
+            logger.info("！占领"+occupyBlockNum+"失败");
+            return true;
+        }
+    }
+
     public JSONObject getLastPlayerOpInfo(){
-        lastPlayerOpInfo = new JSONObject();
         if(nowTurnNum == 0){
+            lastPlayerOpInfo = new JSONObject();
             lastPlayerOpInfo.put("lastPlayerHandCard","null");
             lastPlayerOpInfo.put("lastPlayerPutX","null");
             lastPlayerOpInfo.put("lastPlayerPutY","null");
