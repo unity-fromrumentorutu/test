@@ -330,19 +330,19 @@ public class RoomManager {
 //        System.out.println(points);
 
         for(Point point:points){
-            if((map[point.getX()][point.getY()].getTop().getCityorroad()==p)&&(map[point.getX()][point.getY()].getTop().getType()==type)){
+            if((map[point.getX()][point.getY()].getTop().getCityorroad()==p)&&(map[point.getX()][point.getY()].getTop().getType().equals(type))){
                 map[point.getX()][point.getY()].setTopRoadOrCity(own);
 //                System.out.println("上变了"+map[point.getX()][point.getY()].getTop().getCityorroad());
             }
-            if((map[point.getX()][point.getY()].getRig().getCityorroad()==p)&&(map[point.getX()][point.getY()].getRig().getType()==type)){
+            if((map[point.getX()][point.getY()].getRig().getCityorroad()==p)&&(map[point.getX()][point.getY()].getRig().getType().equals(type))){
                 map[point.getX()][point.getY()].setRigRoadOrCity(own);
 //                System.out.println("右变了"+map[point.getX()][point.getY()].getRig().getCityorroad());
             }
-            if((map[point.getX()][point.getY()].getBot().getCityorroad()==p)&&(map[point.getX()][point.getY()].getBot().getType()==type)){
+            if((map[point.getX()][point.getY()].getBot().getCityorroad()==p)&&(map[point.getX()][point.getY()].getBot().getType().equals(type))){
                 map[point.getX()][point.getY()].setBotRoadOrCity(own);
 //                System.out.println("下变了"+map[point.getX()][point.getY()].getBot().getCityorroad());
             }
-            if((map[point.getX()][point.getY()].getLef().getCityorroad()==p)&&(map[point.getX()][point.getY()].getLef().getType()==type)){
+            if((map[point.getX()][point.getY()].getLef().getCityorroad()==p)&&(map[point.getX()][point.getY()].getLef().getType().equals(type))){
                 map[point.getX()][point.getY()].setLefRoadOrCity(own);
 //                System.out.println("左变了"+map[point.getX()][point.getY()].getLef().getCityorroad());
             }

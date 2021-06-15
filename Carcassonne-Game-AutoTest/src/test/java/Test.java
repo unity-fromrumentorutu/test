@@ -51,6 +51,8 @@ public class Test {
 
 
 
+
+
 //
 //        String context1 = "这是第一条消息";
 //        JSONObject sendChatInfo = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.common_sendChatInfo,"{\"type\":\"room\",\"context\":\"" + context1 + "\"}",TOKEN,token1));
