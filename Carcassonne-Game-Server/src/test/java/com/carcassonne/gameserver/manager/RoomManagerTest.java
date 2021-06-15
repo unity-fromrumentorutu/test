@@ -390,12 +390,12 @@ class RoomManagerTest {
 
         for(int i=0;i<50;i++){
             HashMap<Integer,ArrayList<Point>> hashMap = new HashMap<>();
-            System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
-            System.out.println(roomManager.getPuzzle().getCanPutPositionList());
-            System.out.println("手牌:"+cardsArray.get(i).getTop().getType()+","+cardsArray.get(i).getRig().getType()+","+cardsArray.get(i).getBot().getType()+","+cardsArray.get(i).getLef().getType());
+//            System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
+//            System.out.println(roomManager.getPuzzle().getCanPutPositionList());
+//            System.out.println("手牌:"+cardsArray.get(i).getTop().getType()+","+cardsArray.get(i).getRig().getType()+","+cardsArray.get(i).getBot().getType()+","+cardsArray.get(i).getLef().getType());
 
             hashMap = roomManager.getAllCanPutPositionList(cardsArray.get(i));
-            System.out.println(hashMap);
+//            System.out.println(hashMap);
             //suiji
             ArrayList<Point> pointArray = new ArrayList<>();
 
@@ -411,16 +411,33 @@ class RoomManagerTest {
 
             Point point = pointArray.get(0);
             Card card = cardsArray.get(i);
-            System.out.println("旋转前:"+card);
+//            System.out.println("旋转前:"+card);
             card.rotate(point.getR());
-            System.out.println("("+point.getX()+","+point.getY()+")"+","+point.getR());
-            System.out.println("旋转完:"+card);
+//            System.out.println("("+point.getX()+","+point.getY()+")"+","+point.getR());
+//            System.out.println("旋转完:"+card);
             roomManager.putCard(point.getX(),point.getY(),card);
-            System.out.println("当前卡牌:"+cardsArray.get(i).getTop().getType()+cardsArray.get(i).getTop().getCityorroad()+","+cardsArray.get(i).getRig().getType()+cardsArray.get(i).getRig().getCityorroad()+","+cardsArray.get(i).getBot().getType()+cardsArray.get(i).getBot().getCityorroad()+","+cardsArray.get(i).getLef().getType()+cardsArray.get(i).getLef().getCityorroad());
-
-            System.out.println("放在了"+point+point.getR() );
+//            System.out.println("当前卡牌:"+cardsArray.get(i).getTop().getType()+cardsArray.get(i).getTop().getCityorroad()+","+cardsArray.get(i).getRig().getType()+cardsArray.get(i).getRig().getCityorroad()+","+cardsArray.get(i).getBot().getType()+cardsArray.get(i).getBot().getCityorroad()+","+cardsArray.get(i).getLef().getType()+cardsArray.get(i).getLef().getCityorroad());
+//
+//            System.out.println("放在了"+point+point.getR() );
         }
     }
+
+    @Test
+    public void gameTestRunMuti(){
+        int k=0;
+        try {
+            for (int  i=0;i<100000;i++){
+                gameTest();
+                k++;
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("一共对了"+k+"次");
+    }
+
     @Test
     public void gameTest2(){
         ArrayList<Card> cardsArray = CardLibraryUtil.getCardLibrary();

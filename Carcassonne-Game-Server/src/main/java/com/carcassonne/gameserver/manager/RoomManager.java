@@ -375,7 +375,7 @@ public class RoomManager {
 //                n++;
                 if( ! thiscard[x][y-1].getBot().getType().equals(card.getTop().getType())){
                     if(x==16&&y==14){
-                        System.out.println(thiscard[x][y-1].getBot().getType()+","+card.getTop().getType());
+//                        System.out.println(thiscard[x][y-1].getBot().getType()+","+card.getTop().getType());
                     }
                     YN = false;
                 }
