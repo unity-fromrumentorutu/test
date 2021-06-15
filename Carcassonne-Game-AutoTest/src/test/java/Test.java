@@ -35,7 +35,7 @@ public class Test {
         Thread.sleep(200);
 
 
-        for (int i=0 ;i<20;i++){
+        for (int i=0 ;i<2;i++){
             JSONObject getFrameInfo1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_getFrameInfo,NULL,TOKEN,token1)) ;
             ArrayList<PutPoint> putPointList = HTTPUtil.formatFrameToGetPutPoint(getFrameInfo1);
             if(getFrameInfo1.getString("roundPlayerAccountNum").equals(accountNum_1)){
