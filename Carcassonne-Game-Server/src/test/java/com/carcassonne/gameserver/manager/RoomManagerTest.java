@@ -411,6 +411,57 @@ class RoomManagerTest {
 
             Point point = pointArray.get(0);
             Card card = cardsArray.get(i);
+            System.out.println("旋转前:"+card);
+            card.rotate(point.getR());
+            System.out.println("("+point.getX()+","+point.getY()+")"+","+point.getR());
+            System.out.println("旋转完:"+card);
+            roomManager.putCard(point.getX(),point.getY(),card);
+            System.out.println("当前卡牌:"+cardsArray.get(i).getTop().getType()+cardsArray.get(i).getTop().getCityorroad()+","+cardsArray.get(i).getRig().getType()+cardsArray.get(i).getRig().getCityorroad()+","+cardsArray.get(i).getBot().getType()+cardsArray.get(i).getBot().getCityorroad()+","+cardsArray.get(i).getLef().getType()+cardsArray.get(i).getLef().getCityorroad());
+
+            System.out.println("放在了"+point+point.getR() );
+        }
+    }
+    @Test
+    public void gameTest2(){
+        ArrayList<Card> cardsArray = CardLibraryUtil.getCardLibrary();
+
+        Card[][] cards = new Card[31][31];
+        Card or = new Card();
+        or.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        or.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
+        or.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        Player player1 = new Player("murasame");
+        Player player2 = new Player("player2");
+        ArrayList<Player> players = new ArrayList<>();
+        players.add(player1);
+        players.add(player2);
+        RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
+        roomManager.putCard(15,15,or);
+
+
+        for(int i=0;i<10;i++){
+            HashMap<Integer,ArrayList<Point>> hashMap = new HashMap<>();
+            System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
+            System.out.println(roomManager.getPuzzle().getCanPutPositionList());
+            System.out.println("手牌:"+cardsArray.get(i).getTop().getType()+","+cardsArray.get(i).getRig().getType()+","+cardsArray.get(i).getBot().getType()+","+cardsArray.get(i).getLef().getType());
+
+            hashMap = roomManager.getAllCanPutPositionList(cardsArray.get(i));
+            System.out.println(hashMap);
+            ArrayList<Point> pointArray = new ArrayList<>();
+
+            for(int j=0;j<4;j++){
+                for(int k=0;k<hashMap.get(j).size();k++){
+                    Point point = hashMap.get(j).get(k);
+                    point.setR(j);
+                    pointArray.add(point);
+                }
+            }
+            Collections.shuffle(pointArray);
+
+
+            Point point = pointArray.get(0);
+            Card card = cardsArray.get(i);
             card.rotate(point.getR());
             System.out.println("("+point.getX()+","+point.getY()+")"+","+point.getR());
             roomManager.putCard(point.getX(),point.getY(),card);
