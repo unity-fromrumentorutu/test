@@ -11,16 +11,13 @@ public class Block {
     HashMap<Point, Card> cardMap = new HashMap<>();//好像没用了
     HashMap<Point, ArrayList<Edge>> edgeMap = new HashMap<>();
     HashMap<String, Integer> scoreRecord = new HashMap<>();//玩家和玩家对应个数
-    ArrayList<String> playerIdArray = new ArrayList<>();
+    ArrayList<String> playerIdArray = new ArrayList<>();//最后得分玩家
     public boolean isFull = true;
     int scorePerCard = 0;
     int scoreAll = 0;
 
     public Block(String edgeString,ArrayList<String> nPlayerIdArray){
         this.edgeString = edgeString;
-        for (String playerId : nPlayerIdArray){
-            scoreRecord.put(playerId,10);
-        }
     }
     public Block(String edgeType, HashMap<Point, Card> cardMap) {
         this.edgeString = edgeType;
@@ -336,5 +333,10 @@ public class Block {
     public void addPlayerId(String id){
         playerIdArray.add(id);
     }
-
+    public boolean isContainsPosition(int x,int y,int e){
+        Point point = new Point(x,y);
+        ArrayList<Edge> edgeArrayList = edgeMap.get(point);
+        if(edgeArrayList.get(e)==null) return false;
+        else return true;
+    }
 }
