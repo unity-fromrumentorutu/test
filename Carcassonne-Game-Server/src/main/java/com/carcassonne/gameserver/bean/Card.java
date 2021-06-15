@@ -72,7 +72,8 @@ public class Card {
     @Override
     public String toString() {
         return "Card{" +
-                "top=" + top +
+                "id=" + id +
+                ", top=" + top +
                 ", bot=" + bot +
                 ", lef=" + lef +
                 ", rig=" + rig +

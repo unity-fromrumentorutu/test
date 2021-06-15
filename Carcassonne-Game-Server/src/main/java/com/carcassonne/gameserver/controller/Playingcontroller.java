@@ -104,4 +104,52 @@ public class Playingcontroller {
         }
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/occupy",method = RequestMethod.POST)
+    public JSONObject occupy(HttpServletRequest request,@RequestBody String JSONBody) {
+        JSONObject result = new JSONObject();
+        JSONObject requestBody = new JSONObject();
+        String token = null;
+        Integer occupyBlock = null;
+        String blockType = null;
+        String accountNum = null;
+        Integer roomNum =null;
+        try {
+            token = request.getHeader("token");
+            accountNum = JwtTokenUtil.getUsername(token);
+            requestBody = JSONObject.parseObject(JSONBody);
+            occupyBlock = requestBody.getInteger("occupyBlock");
+            roomNum = userService.getWaitStartPlayerByAccountNum(accountNum).getInteger("inRoomNum");
+            if (requestBody.containsKey("blockType"))
+                blockType = requestBody.getString("blockType");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("code", 400);
+            result.put("message", "Bad Request");
+            logger.error("/playing/occupy api end with 400 , Bad Request " + e.toString() + " JSONBody :" + JSONBody);
+            return result;
+        }
+
+        try {
+            if (roomService.occupy(roomNum,accountNum,occupyBlock,blockType) == false ) {
+                result.put("code",200);
+                result.put("message","OK, request successfully");
+                return result;
+            }else {
+                result.put("code",500);
+                result.put("message", StateCodeConfig.when_500_message(JSONBody));
+                logger.error("/playing/occupy api end with 500 , unknown error ! token :" + token);
+                return result;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            result.put("code",500);
+            result.put("message", StateCodeConfig.when_500_message(JSONBody));
+            logger.error("/playing/occupy api end with 500 , unknown error ! token :" + token);
+            return result;
+        }
+    }
+
 }
