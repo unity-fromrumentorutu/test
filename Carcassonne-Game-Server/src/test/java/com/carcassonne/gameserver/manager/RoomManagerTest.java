@@ -388,7 +388,7 @@ class RoomManagerTest {
         roomManager.putCard(15,15,or);
 
 
-        for(int i=0;i<50;i++){
+        for(int i=0;i<89;i++){
             HashMap<Integer,ArrayList<Point>> hashMap = new HashMap<>();
 //            System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
 //            System.out.println(roomManager.getPuzzle().getCanPutPositionList());
@@ -423,19 +423,22 @@ class RoomManagerTest {
     }
 
     @Test
-    public void gameTestRunMuti(){
-        int k=0;
-        try {
-            for (int  i=0;i<100000;i++){
+    public void gameTestRunMuti() {
+        int k = 0;
+        int a = 0;
+        for (int i = 0; i < 10000; i++) {
+            try {
+
+                a++;
                 gameTest();
                 k++;
-            }
 
-        }catch (Exception e){
+
+            }catch(Exception e){
             System.out.println(e.getMessage());
+            }
         }
-
-        System.out.println("一共对了"+k+"次");
+        System.out.println("总的"+a+",一共对了"+k+"次");
     }
 
     @Test
