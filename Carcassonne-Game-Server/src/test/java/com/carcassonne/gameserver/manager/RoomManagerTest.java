@@ -388,7 +388,7 @@ class RoomManagerTest {
         roomManager.putCard(15,15,or);
 
 
-        for(int i=0;i<10;i++){
+        for(int i=0;i<50;i++){
             HashMap<Integer,ArrayList<Point>> hashMap = new HashMap<>();
             System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
             System.out.println(roomManager.getPuzzle().getCanPutPositionList());
