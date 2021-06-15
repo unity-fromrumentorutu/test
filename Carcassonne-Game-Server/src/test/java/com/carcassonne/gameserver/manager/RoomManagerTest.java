@@ -411,8 +411,10 @@ class RoomManagerTest {
 
             Point point = pointArray.get(0);
             Card card = cardsArray.get(i);
+            System.out.println("旋转前:"+card);
             card.rotate(point.getR());
             System.out.println("("+point.getX()+","+point.getY()+")"+","+point.getR());
+            System.out.println("旋转完:"+card);
             roomManager.putCard(point.getX(),point.getY(),card);
             System.out.println("当前卡牌:"+cardsArray.get(i).getTop().getType()+cardsArray.get(i).getTop().getCityorroad()+","+cardsArray.get(i).getRig().getType()+cardsArray.get(i).getRig().getCityorroad()+","+cardsArray.get(i).getBot().getType()+cardsArray.get(i).getBot().getCityorroad()+","+cardsArray.get(i).getLef().getType()+cardsArray.get(i).getLef().getCityorroad());
 
