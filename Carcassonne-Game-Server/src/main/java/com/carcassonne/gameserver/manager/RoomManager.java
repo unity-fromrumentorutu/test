@@ -19,6 +19,14 @@ public class RoomManager {
     static public int MIN_X = 0;
     static public int MIN_Y = 0;
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
     private ArrayList<Player> players;
 
     private ArrayList<String> playerIds = new ArrayList<>();
@@ -113,6 +121,7 @@ public class RoomManager {
     }
 
     public Boolean playerActionOccupy(String accountNum,Integer occupyBlockNum,String blockType){
+        System.out.println(players.get(nowPlayerNum).getAccountNum());
         try {
             if(occupyBlockNum != 999 && players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
                 appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
@@ -120,6 +129,7 @@ public class RoomManager {
             return false;
         }catch (Exception e){
             logger.info("！占领"+occupyBlockNum+"失败");
+            System.out.println(e);
             return true;
         }
     }
@@ -651,7 +661,6 @@ public class RoomManager {
                     updateBlockAllEdgeOwn(nmap,cityBlock.get(card.getRig().getCityorroad()),card.getTop().getCityorroad(),card.getRig().getCityorroad(),"city");
                     cityBlock.get(card.getTop().getCityorroad()).mergeBlock(cityBlock.get(tmp));
 
-
                 }
 
 //                city.get(card.getTop().getCityorroad()).addAll(city.get(card.getRig().getCityorroad()));
@@ -936,12 +945,14 @@ public class RoomManager {
         updateCanPutPositionList(point);
 //        nmap[x][y] = card;
         puzzle.setmPuzzle(nmap);
+
     }
 
 
     public HashMap<Integer, Block> getUnappropriatedCityBlock(){
         HashMap<Integer, Block> unappropriatedCityBlock = new HashMap<Integer, Block>();
 //        ArrayList<Block> unappropriatedCityBlock = new ArrayList<>();
+//        System.out.println("获取"+cityBlock);
         for(Integer i = 0;i<cityBlock.size();i++){
             if (cityBlock.get(i).scoreRecordIsempty()){
                 unappropriatedCityBlock.put(i,cityBlock.get(i));
@@ -953,6 +964,7 @@ public class RoomManager {
     public HashMap<Integer, Block> getUnappropriatedRoadBlock(){
         HashMap<Integer, Block> unappropriatedRoadBlock = new HashMap<Integer, Block>();
 //        ArrayList<Block> unappropriatedBlock = new ArrayList<>();
+//        System.out.println("获取"+roadBlock);
         for(Integer i = 0;i<roadBlock.size();i++){
             if (roadBlock.get(i).scoreRecordIsempty()){
                 unappropriatedRoadBlock.put(i,roadBlock.get(i));
@@ -1065,4 +1077,6 @@ public class RoomManager {
     public Integer getLibRemainNum(){
         return cardLibrary.length - nowLibNum;
     }
+
+
 }
