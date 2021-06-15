@@ -74,11 +74,11 @@ public class RoomManager {
     }
 
     public Boolean playerActionPutCard(String accountNum,Integer putX,Integer putY,Integer rotation){
-        JSONArray jsonArray = new JSONArray();
-        for (int i=0;i<cardLibrary.length;i++){
-            jsonArray.add(cardLibrary[i].toJsonString());
-        }
-        System.out.println(jsonArray);
+//        JSONArray jsonArray = new JSONArray();   //获取牌库用的
+//        for (int i=0;i<cardLibrary.length;i++){
+//            jsonArray.add(cardLibrary[i].toJsonString());
+//        }
+//        System.out.println(jsonArray);
 
         try {
             logger.info("====> 回合数为"+ nowTurnNum +", 玩家序号"+ nowPlayerNum +" 尝试放置坐标(X,Y,R)=("+putX+","+putY+","+rotation+") ，占领：否 ， 手牌URL："+ players.get(nowPlayerNum).getHand().getPictureUrl());
@@ -95,18 +95,9 @@ public class RoomManager {
                 card.rotate(rotation);
                 putCard(putX,putY,card);
 
-
-                if(nowPlayerNum == players.size() -1){
-                    nowTurnNum++;
-                    nowPlayerNum = 0;
-                    return deal();
-                }else {
-                    nowPlayerNum++;
-                    return deal();
-                }
             }
             logger.info("~~~~ 本次放置成功！");
-            return  true;
+            return false;
         }catch (Exception e){
             logger.info("#### playerAction函数出错, 回合数" + nowTurnNum +" 玩家序号" + nowPlayerNum + "切换下一玩家"+"  错误信息："+e.getMessage());
             if(nowPlayerNum == players.size() -1){  //出错先切换玩家
@@ -121,10 +112,21 @@ public class RoomManager {
     }
 
     public Boolean playerActionOccupy(String accountNum,Integer occupyBlockNum,String blockType){
-        System.out.println(players.get(nowPlayerNum).getAccountNum());
+
         try {
             if(occupyBlockNum != 999 && players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
                 appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
+                    lastPlayerOpInfo.put("lastPlayerOccupyBlockId",occupyBlockNum);
+                    //切换玩家
+                if(nowPlayerNum == players.size() -1){
+                    nowTurnNum++;
+                    nowPlayerNum = 0;
+                    return deal();
+                }else {
+                    nowPlayerNum++;
+                    return deal();
+                }
+
             }
             return false;
         }catch (Exception e){
@@ -207,7 +209,7 @@ public class RoomManager {
             pointsStr += ", ("+res.getJSONObject(i).get("roundPlayerCanPutPositionX")+","+res.getJSONObject(i).get("roundPlayerCanPutPositionY")+","+
                     res.getJSONObject(i).get("roundPlayerCanPutPositionRotation")+")";
         }
-        logger.info("能放的坐标 = " + pointsStr);
+        logger.info("能放的坐标数"+res.size()+" = " + pointsStr);
         return res;
     }
 
@@ -281,9 +283,15 @@ public class RoomManager {
         return array;
     }
 
-    public void  addPlayer(Player player){
-        players.add(player);
-        activePlayerNum ++;
+    public Boolean addPlayer(Player player){
+        for(int i=0;i<players.size();i++){
+            if(players.get(i).getAccountNum().equals(player.getAccountNum())){
+                return false;
+            }
+        }
+            players.add(player);
+            activePlayerNum ++;
+        return  true;
     }
 
 
@@ -317,8 +325,13 @@ public class RoomManager {
     }
 
 
-    public void deletePlayer(Player player){
-        //TODO 删除玩家，玩家离开房间
+    public void deletePlayer(String accountNum){
+        for(int i=0;i<players.size();i++){
+            if(players.get(i).getAccountNum().equals(accountNum)){
+                players.remove(i);
+                break;
+            }
+        }
         activePlayerNum--;
     }
 

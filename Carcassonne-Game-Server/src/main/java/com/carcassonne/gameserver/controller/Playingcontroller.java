@@ -91,7 +91,7 @@ public class Playingcontroller {
             }else {
                 result.put("code",500);
                 result.put("message", StateCodeConfig.when_500_message(JSONBody));
-                logger.error("/playing/fanCard api end with 500 , unknown error ! token :" + token);
+                logger.error("/playing/fanCard api end with 500 ,fancard return true ! token :" + token);
                 return result;
             }
 

@@ -227,7 +227,7 @@ public class WanderController {
 
         try {
             User user = userService.getWonderUserByAccountNum(accountNum);
-            userService.deleteWanderUserByAccountNum(accountNum);
+//            userService.deleteWanderUserByAccountNum(accountNum);
             Player player = new Player(false,null,null,false,"playing",roomNum,user);
             roomService.userJoinRoom(player,roomNum);
             userService.insertWaitStartPlayer(player);
@@ -280,7 +280,7 @@ public class WanderController {
             e.printStackTrace();
             result.put("code",500);
             result.put("message", StateCodeConfig.when_500_message(JSONBody));
-            logger.error("/wander/userJoinRoom api end with 500 , unknown error ! "+e.toString()+" ==> JSONBody:" + JSONBody);
+            logger.error("/wander/userJoinRoom api end with 500 ,  => Nonexistent room <= ( or unknown error) ! "+e.toString()+" ==> JSONBody:" + JSONBody);
             return result;
         }
     }

@@ -45,6 +45,10 @@ public class RoomService {
         MainGameManager.getInstance().addPlayer(player,roomNum);
     }
 
+    public void userExitRoom(String accountNum,Integer roomNum){
+        MainGameManager.getInstance().deletePlayer(accountNum,roomNum);
+    }
+
 
     public JSONArray searchRoom(String roomNum){
         JSONArray array = MainGameManager.getInstance().searchRoom(roomNum);

@@ -43,6 +43,13 @@ public class MainGameManager {
         roomHashMap.get(roomNum).getRoomManager().addPlayer(player);
     }
 
+    public void deletePlayer(String accountNum,Integer roomNum){
+        roomHashMap.get(roomNum).getRoomManager().deletePlayer(accountNum);
+        if(roomHashMap.get(roomNum).getRoomManager().getActivePlayerNum() == 0){
+            roomHashMap.remove(roomNum);
+        }
+    }
+
     public String readyAndStartGame(String accountNum,Integer roomNum){
         String state = roomHashMap.get(roomNum).getRoomManager().readyAndStartGame(accountNum);
         if(state.equals("playing")){
