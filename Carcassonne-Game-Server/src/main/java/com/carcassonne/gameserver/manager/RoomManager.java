@@ -14,8 +14,8 @@ import java.util.*;
  */
 public class RoomManager {
 
-    static public int MAX_X = 31;
-    static public int MAX_Y = 31;
+    static public int MAX_X = 30;
+    static public int MAX_Y = 30;
     static public int MIN_X = 0;
     static public int MIN_Y = 0;
 
@@ -297,7 +297,7 @@ public class RoomManager {
             if(players.get(i).getReady()==true) flag++;
         }
         if (flag==players.size() && flag > 1) {
-            Card[][] cards = new Card[31][31];
+            Card[][] cards = new Card[32][32];
             Card or = new Card();
             or.setBot(new Edge(99,"grass","{\"top\":\"false\",\"bot\":\"false\",\"lef\":\"false\",\"rig\":\"false\"}"));
             or.setLef(new Edge(99,"road","{\"top\":\"false\",\"bot\":\"false\",\"lef\":\"false\",\"rig\":\"true\"}"));
@@ -383,10 +383,8 @@ public class RoomManager {
         if((y-1)>=MIN_Y){
             if(thiscard[x][y-1] != null){
 //                n++;
-                if( ! thiscard[x][y-1].getBot().getType().equals(card.getTop().getType())){
-                    if(x==16&&y==14){
-//                        System.out.println(thiscard[x][y-1].getBot().getType()+","+card.getTop().getType());
-                    }
+                if(! thiscard[x][y-1].getBot().getType().equals(card.getTop().getType())){
+
                     YN = false;
                 }
             }

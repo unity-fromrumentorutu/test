@@ -236,44 +236,33 @@ class RoomManagerTest {
         HashMap<Integer, Block> unappropriatedCityBlock = roomManager.getUnappropriatedCityBlock();
         roomManager.appropriated(0,"murasame","city");
 
-        testPut(roomManager,"0","grass","road","grass","road",16,15,
-                0, "false","false","false","false","true","false");
-        testPut(roomManager,"1.1","grass","grass","road","road",14,15,
-                3, "false","false","false","false","false","true");
+        testPut(roomManager,"0","city","grass","city","grass",15,14,
+                0, "false","false","false","false","false","false");
+        testPut(roomManager,"1","city","grass","road","road",16,15,
+                0, "false","false","false","false","false","true");
+        testPut(roomManager,"2","city","city","city","grass",15,13,
+                0, "true","true","false","true","false","false");
+        testPut(roomManager,"3","grass","city","city","grass",15,12,
+                0, "false","false","false","false","false","false");
+        testPut(roomManager,"4","city","grass","grass","city",16,13,
+                0, "false","false","true","false","false","false");
+        testPut(roomManager,"5","city","grass","city","grass",17,13,
+                0, "false","false","false","false","false","false");
+        testPut(roomManager,"6","city","grass","city","grass",17,14,
+                0, "false","true","false","false","false","false");
+        testPut(roomManager,"7","road","grass","city","road",17,12,
+                0, "false","false","true","false","false","false");
+        testPut(roomManager,"8","grass","grass","road","road",17,11,
+                0, "false","false","false","false","false","true");
 
-        //2.0出错了，我本地得到的可放位置是正确的，你放了一个不能放的地方，所以后面才错了
-        //TODO 看看这个
-        testPut(roomManager,"2.0","city","grass","grass","grass",17,15,
-                2, "false","false","false","false","false","false");
-        testPut(roomManager,"2.1","grass","road","grass","road",17,14,
-                3, "false","false","false","false","true","false");
-        testPut(roomManager,"3.0","city","grass","grass","city",13,15,
-                3, "false","false","true","false","false","false");
-        testPut(roomManager,"3.1","grass","road","grass","road",14,14,
-                2, "false","false","false","false","true","false");
 
-//        System.out.println("》》》》》》》》》回合4.0《《《《《《《《《《");
-//        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-//        Card cardTBC = new Card();
-//        cardTBC.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        cardTBC.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        cardTBC.setBot(new Edge(3,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        cardTBC.setLef(new Edge(4,"grass","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        System.out.println(roomManager.getCanPutPositionList(cardTBC));
-//        cardTBC.rotate(3);
-//        roomManager.putCard(17,16,cardTBC);
-//
-//
-//        System.out.println("》》》》》》》》》回合4.1《《《《《《《《《《");
-//        System.out.println("》》》》》》》》》可放坐标《《《《《《《《《《");
-//        Card cardLR3 = new Card();
-//        cardLR3.setTop(new Edge(1,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        cardLR3.setRig(new Edge(2,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        cardLR3.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        cardLR3.setLef(new Edge(4,"city","{\"top\":\"true\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-//        System.out.println(roomManager.getCanPutPositionList(cardLR3));
-//        cardLR3.rotate(0);
-//        roomManager.putCard(13,15,cardLR3);
+        Card card = new Card();
+        card.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"true\",\"bot\":\"false\",\"lef\":\"true\"}"));
+        card.setLef(new Edge(2,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        card.setRig(new Edge(3,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
+        card.setBot(new Edge(4,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+        System.out.println("》》》》》》》》》debug可放坐标《《《《《《《《《《");
+        System.out.println(roomManager.getCanPutPositionList(card));
     }
     @Test
     public void WalkTest(){
@@ -371,72 +360,74 @@ class RoomManagerTest {
     }
     @Test
     public void gameTest(){
-        ArrayList<Card> cardsArray = CardLibraryUtil.getCardLibrary();
 
-        Card[][] cards = new Card[31][31];
-        Card or = new Card();
-        or.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        or.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        or.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
-        or.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
-        Player player1 = new Player("murasame");
-        Player player2 = new Player("player2");
-        ArrayList<Player> players = new ArrayList<>();
-        players.add(player1);
-        players.add(player2);
-        RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
-        roomManager.putCard(15,15,or);
+            ArrayList<Card> cardsArray = CardLibraryUtil.getCardLibrary();
+
+            Card[][] cards = new Card[31][31];
+            Card or = new Card();
+            or.setBot(new Edge(3,"grass","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+            or.setLef(new Edge(4,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+            or.setRig(new Edge(2,"road","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"true\"}"));
+            or.setTop(new Edge(1,"city","{\"top\":\"false\",\"rig\":\"false\",\"bot\":\"false\",\"lef\":\"false\"}"));
+            Player player1 = new Player("murasame");
+            Player player2 = new Player("player2");
+            ArrayList<Player> players = new ArrayList<>();
+            players.add(player1);
+            players.add(player2);
+            RoomManager roomManager=new RoomManager(cards,players);//卡片和玩家列表
+            roomManager.putCard(15,15,or);
 
 
-        for(int i=0;i<89;i++){
-            HashMap<Integer,ArrayList<Point>> hashMap = new HashMap<>();
+            for(int i=0;i<50;i++) {
+                HashMap<Integer, ArrayList<Point>> hashMap = new HashMap<>();
 //            System.out.println("》》》》》》》》》可放坐标周围一圈《《《《《《《《《《");
 //            System.out.println(roomManager.getPuzzle().getCanPutPositionList());
 //            System.out.println("手牌:"+cardsArray.get(i).getTop().getType()+","+cardsArray.get(i).getRig().getType()+","+cardsArray.get(i).getBot().getType()+","+cardsArray.get(i).getLef().getType());
 
-            hashMap = roomManager.getAllCanPutPositionList(cardsArray.get(i));
+                hashMap = roomManager.getAllCanPutPositionList(cardsArray.get(i));
 //            System.out.println(hashMap);
-            //suiji
-            ArrayList<Point> pointArray = new ArrayList<>();
+                //suiji
+                ArrayList<Point> pointArray = new ArrayList<>();
 
-            for(int j=0;j<4;j++){
-                for(int k=0;k<hashMap.get(j).size();k++){
-                    Point point = hashMap.get(j).get(k);
-                    point.setR(j);
-                    pointArray.add(point);
+                for (int j = 0; j < 4; j++) {
+                    for (int k = 0; k < hashMap.get(j).size(); k++) {
+                        Point point = hashMap.get(j).get(k);
+                        point.setR(j);
+                        pointArray.add(point);
+                    }
                 }
-            }
-            Collections.shuffle(pointArray);
+                Collections.shuffle(pointArray);
 
-
-            Point point = pointArray.get(0);
-            Card card = cardsArray.get(i);
+                if (!pointArray.isEmpty()) {
+                    Point point = pointArray.get(0);
+                    Card card = cardsArray.get(i);
 //            System.out.println("旋转前:"+card);
-            card.rotate(point.getR());
+                    card.rotate(point.getR());
 //            System.out.println("("+point.getX()+","+point.getY()+")"+","+point.getR());
 //            System.out.println("旋转完:"+card);
-            roomManager.putCard(point.getX(),point.getY(),card);
+                    roomManager.putCard(point.getX(), point.getY(), card);
 //            System.out.println("当前卡牌:"+cardsArray.get(i).getTop().getType()+cardsArray.get(i).getTop().getCityorroad()+","+cardsArray.get(i).getRig().getType()+cardsArray.get(i).getRig().getCityorroad()+","+cardsArray.get(i).getBot().getType()+cardsArray.get(i).getBot().getCityorroad()+","+cardsArray.get(i).getLef().getType()+cardsArray.get(i).getLef().getCityorroad());
 //
 //            System.out.println("放在了"+point+point.getR() );
-        }
+                }
+            }
+
+
     }
 
     @Test
     public void gameTestRunMuti() {
         int k = 0;
         int a = 0;
-        for (int i = 0; i < 10000; i++) {
-            try {
+        for (int i = 0; i < 100000; i++) {
+
 
                 a++;
                 gameTest();
                 k++;
 
 
-            }catch(Exception e){
-            System.out.println(e.getMessage());
-            }
+
         }
         System.out.println("总的"+a+",一共对了"+k+"次");
     }
