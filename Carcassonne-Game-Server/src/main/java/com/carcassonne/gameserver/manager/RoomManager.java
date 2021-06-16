@@ -100,12 +100,12 @@ public class RoomManager {
             return false;
         }catch (Exception e){
             logger.info("#### playerAction函数出错, 回合数" + nowTurnNum +" 玩家序号" + nowPlayerNum + "切换下一玩家"+"  错误信息："+e.getMessage());
-            if(nowPlayerNum == players.size() -1){  //出错先切换玩家
-                nowTurnNum++;
-                nowPlayerNum = 0;
-            }else {
-                nowPlayerNum++;
-            }
+//            if(nowPlayerNum == players.size() -1){  //出错先切换玩家
+//                nowTurnNum++;
+//                nowPlayerNum = 0;
+//            }else {
+//                nowPlayerNum++;
+//            }
             return true;
         }
 
@@ -128,7 +128,18 @@ public class RoomManager {
                 }
 
             }
-            return false;
+            else {
+                lastPlayerOpInfo.put("lastPlayerOccupyBlockId",999);
+                if(nowPlayerNum == players.size() -1){
+                    nowTurnNum++;
+                    nowPlayerNum = 0;
+                    return deal();
+                }else {
+                    nowPlayerNum++;
+                    return deal();
+                }
+            }
+
         }catch (Exception e){
             logger.info("！占领"+occupyBlockNum+"失败");
             System.out.println(e);
