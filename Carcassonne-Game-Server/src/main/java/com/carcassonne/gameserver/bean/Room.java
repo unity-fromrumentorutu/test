@@ -55,7 +55,7 @@ public class Room {
             for ( int j = 0 ; j < cardArrayList.get(i).getCount() ; j++){
                 temp.add(cardArrayList.get(i));
             }
-        }
+        } System.out.println("@@@@@  牌库大小："+temp.size());
         Collections.shuffle(temp);
         Card[] cardLib = new Card[temp.size()];
         for (int i = 0 ; i < temp.size() ; i++){

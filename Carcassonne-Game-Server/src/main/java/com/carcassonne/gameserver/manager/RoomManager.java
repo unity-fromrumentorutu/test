@@ -115,8 +115,18 @@ public class RoomManager {
 
         try {
             if(occupyBlockNum != 999 && players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
+
+                JSONArray occupyArray = getNowPlayerCanOccupyBlock();
+                for(int i=0;i<occupyArray.size();i++){
+                    if(occupyArray.getJSONObject(i).getInteger("roundPlayerCanOccupyBlockId") == occupyBlockNum){
+                        lastPlayerOpInfo.put("lastPlayerOccupyBlockInfo",occupyArray.getJSONObject(i));
+                        break;
+                    }
+                }
+
                 appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
-                    lastPlayerOpInfo.put("lastPlayerOccupyBlockId",occupyBlockNum);
+                lastPlayerOpInfo.put("lastPlayerOccupyBlockId",occupyBlockNum);
+
                     //切换玩家
                 if(nowPlayerNum == players.size() -1){
                     nowTurnNum++;
