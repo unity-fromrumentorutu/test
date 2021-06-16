@@ -14,8 +14,8 @@ import java.util.*;
  */
 public class RoomManager {
 
-    static public int MAX_X = 31;
-    static public int MAX_Y = 31;
+    static public int MAX_X = 29;
+    static public int MAX_Y = 29;
     static public int MIN_X = 0;
     static public int MIN_Y = 0;
 
