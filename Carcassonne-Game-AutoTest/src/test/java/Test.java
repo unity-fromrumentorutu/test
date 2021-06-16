@@ -35,16 +35,20 @@ public class Test {
         Thread.sleep(200);
 
 
-        for (int i=0 ;i<2;i++){
+        for (int i=0 ;i<40;i++){
             JSONObject getFrameInfo1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_getFrameInfo,NULL,TOKEN,token1)) ;
             ArrayList<PutPoint> putPointList = HTTPUtil.formatFrameToGetPutPoint(getFrameInfo1);
             if(getFrameInfo1.getString("roundPlayerAccountNum").equals(accountNum_1)){
                 String request= "{\"putX\":\""+putPointList.get(0).getX()+"\",\"putY\":\""+putPointList.get(0).getY()+"\",\"rotation\":\""+putPointList.get(0).getRotation()+"\"}" ;
                 JSONObject fanCard1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_fanCard,request,TOKEN,token1)) ;
+                request = "{\"occupyBlock\":999,\"blockType\":\"road\"}";
+                JSONObject occupy1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_occupy,request,TOKEN,token1)) ;
             }
             else if (getFrameInfo1.getString("roundPlayerAccountNum").equals(accountNum_2)){
                 String request= "{\"putX\":\""+putPointList.get(0).getX()+"\",\"putY\":\""+putPointList.get(0).getY()+"\",\"rotation\":\""+putPointList.get(0).getRotation()+"\"}" ;
                 JSONObject fanCard1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_fanCard,request,TOKEN,token2)) ;
+                request = "{\"occupyBlock\":999,\"blockType\":\"road\"}";
+                JSONObject occupy1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_occupy,request,TOKEN,token2)) ;
             }
         }
 
@@ -68,6 +72,32 @@ public class Test {
 
     @org.junit.Test
     public void getOnce(){
+
+    }
+
+    @org.junit.Test
+    public void roomTest() throws IOException, InterruptedException {
+        String NULL = "null";
+        String TOKEN = "token";
+        JSONObject p1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.offline_userLogin,"{\"password\":\"111\",\"accountNum\":\"1072876025@qq.com\"}",NULL,NULL)) ;
+        System.out.println(p1);;
+        String accountNum_1 = p1.getJSONObject("userInfo").getString("accountNum");
+        JSONObject p2 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.offline_userLogin,"{\"password\":\"111\",\"accountNum\":\"1072876026@qq.com\"}",NULL,NULL)) ;
+        System.out.println(p2);
+        String accountNum_2 = p2.getJSONObject("userInfo").getString("accountNum");
+        String token1 = p1.getString("token");
+        String token2 = p2.getString("token");
+        JSONObject userCreateRoom1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.wander_userCreateRoom,"{\"roomName\":\"myRoom\",\"roomPassword\":\"111\"}",TOKEN,token1)) ;
+//        System.out.println(userCreateRoom1);
+        String roomNum = userCreateRoom1.getString("roomNum"); System.out.println(roomNum);
+        JSONObject search = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.wander_searchRoom,"{\"roomNum\":\"null\"}",TOKEN,token1)) ;
+        JSONObject userJoinRoom = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.wander_userJoinRoom,"{\"addMode\":\"select\",\"roomNum\":\""+roomNum+"\"}",TOKEN,token2)) ;
+         search = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.wander_searchRoom,"{\"roomNum\":\"null\"}",TOKEN,token1)) ;
+        JSONObject userExitRoom = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.waitStart_userExitRoom,"{\"roomNum\":\""+roomNum+"\"}",TOKEN,token2)) ;
+        search = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.wander_searchRoom,"{\"roomNum\":\"null\"}",TOKEN,token1)) ;
+        userExitRoom = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.waitStart_userExitRoom,"{\"roomNum\":\""+roomNum+"\"}",TOKEN,token1)) ;
+        search = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.wander_searchRoom,"{\"roomNum\":\"null\"}",TOKEN,token1)) ;
+
 
     }
 }

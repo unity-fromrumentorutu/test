@@ -16,9 +16,12 @@ public class HTTPUtil {
     public static String offline_userLogin = "/offline/userLogin";
     public static String wander_userCreateRoom = "/wander/userCreateRoom";
     public static String wander_userJoinRoom = "/wander/userJoinRoom";
+    public static String wander_searchRoom = "/wander/searchRoom";
     public static String waitStart_readyAndStartGame = "/waitStart/readyAndStartGame";
+    public static String waitStart_userExitRoom = "/waitStart/userExitRoom";
     public static String playing_getFrameInfo = "/playing/getFrameInfo";
     public static String playing_fanCard = "/playing/fanCard";
+    public static String playing_occupy = "/playing/occupy";
     public static String common_getChatInfo = "/common/getChatInfo";
     public static String common_sendChatInfo = "/common/sendChatInfo";
 

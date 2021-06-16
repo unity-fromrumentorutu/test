@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.Semaphore;
 
 @RestController
 @EnableAutoConfiguration
@@ -31,22 +32,24 @@ public class Playingcontroller {
     @ResponseBody
     @RequestMapping(value = "/getFrameInfo",method = RequestMethod.POST)
     public JSONObject getFrameInfo(HttpServletRequest request){
-        JSONObject result = new JSONObject();
-        String token = null;
-        try {
-            token = request.getHeader("token");
-            String accountNum = JwtTokenUtil.getUsername(token);
-            Integer roomNum = userService.getWaitStartPlayerByAccountNum(accountNum).getInteger("inRoomNum");
-            result = roomService.getFrameInfo(roomNum);
-            result.put("code",200);
-            result.put("message","OK, request successfully");
-            return  result;
-        }catch (Exception e){
-            e.printStackTrace();
-            result.put("code",500);
-            result.put("message", StateCodeConfig.when_500_message("null"));
-            logger.error("/playing/getFrameInfo api end with 500 , unknown error ! token :" + token);
-            return result;
+        synchronized(this){
+            JSONObject result = new JSONObject();
+            String token = null;
+            try {
+                token = request.getHeader("token");
+                String accountNum = JwtTokenUtil.getUsername(token);
+                Integer roomNum = userService.getWaitStartPlayerByAccountNum(accountNum).getInteger("inRoomNum");
+                result = roomService.getFrameInfo(roomNum);
+                result.put("code", 200);
+                result.put("message", "OK, request successfully");
+                return result;
+            } catch (Exception e) {
+                e.printStackTrace();
+                result.put("code", 500);
+                result.put("message", StateCodeConfig.when_500_message("null"));
+                logger.error("/playing/getFrameInfo api end with 500 , unknown error ! token :" + token);
+                return result;
+            }
         }
     }
 
@@ -91,7 +94,7 @@ public class Playingcontroller {
             }else {
                 result.put("code",500);
                 result.put("message", StateCodeConfig.when_500_message(JSONBody));
-                logger.error("/playing/fanCard api end with 500 , unknown error ! token :" + token);
+                logger.error("/playing/fanCard api end with 500 ,fancard return true ! token :" + token);
                 return result;
             }
 

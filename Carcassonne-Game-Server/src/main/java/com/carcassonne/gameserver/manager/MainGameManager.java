@@ -43,6 +43,13 @@ public class MainGameManager {
         roomHashMap.get(roomNum).getRoomManager().addPlayer(player);
     }
 
+    public void deletePlayer(String accountNum,Integer roomNum){
+        roomHashMap.get(roomNum).getRoomManager().deletePlayer(accountNum);
+        if(roomHashMap.get(roomNum).getRoomManager().getActivePlayerNum() == 0){
+            roomHashMap.remove(roomNum);
+        }
+    }
+
     public String readyAndStartGame(String accountNum,Integer roomNum){
         String state = roomHashMap.get(roomNum).getRoomManager().readyAndStartGame(accountNum);
         if(state.equals("playing")){
@@ -95,6 +102,8 @@ public class MainGameManager {
 
 //TODO 获取frame  流程==> 发牌，获取放置区域，获取占领板块，放牌，放置占领，计算得分，保存当前frame
     public JSONObject getFrameInfo(Integer roomNum){
+
+
         JSONObject res = new JSONObject();
         Integer roundNum = roomHashMap.get(roomNum).getRoomManager().getNowTurnNum();
         String roundPlayerAccountNum = roomHashMap.get(roomNum).getRoomManager().getPlayerAccountNum();

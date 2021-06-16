@@ -2,6 +2,7 @@ package com.carcassonne.gameserver.bean;
 
 
 import java.security.PublicKey;
+import java.util.Objects;
 
 /**
  * 玩家
@@ -29,6 +30,18 @@ public class Player extends User{
         userId=nid;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player)) return false;
+        Player player = (Player) o;
+        return userId.equals(player.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId);
+    }
 
     public String getUserId() {
         return userId;
