@@ -1,5 +1,8 @@
 package com.carcassonne.gameserver.bean;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -14,15 +17,12 @@ public class Puzzle {
     private ArrayList<Point> canPutPositionList;
 
     public Puzzle(){
+        this.mPuzzle = new Card[31][31];
         this.haveBePutCardsList = new ArrayList<Point>();
         this.canPutPositionList = new ArrayList<Point>();
     }
 
-    public Puzzle(Card[][] mPuzzle) {
-        this.mPuzzle = mPuzzle;
-        this.haveBePutCardsList = new ArrayList<Point>();
-        this.canPutPositionList = new ArrayList<Point>();
-    }
+
 
     public Card[][] getmPuzzle() {
         return mPuzzle;
@@ -62,6 +62,22 @@ public class Puzzle {
 //            }
 //        }
         this.haveBePutCardsList.add(point);
+    }
+
+    public JSONArray showPuzzle(){
+        JSONArray array = new JSONArray();
+
+        for(int i=0;i<31;i++){
+            for (int j=0;j<31;j++){
+                if(mPuzzle[i][j] != null ) {
+                    JSONObject temp = new JSONObject();
+                    temp.put("("+i+","+j+")",mPuzzle[i][j].toString());
+                    array.add(temp);
+                }
+
+            }
+        }
+        return  array;
     }
 
     public void addCanPutPositionList(Point point){

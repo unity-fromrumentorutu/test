@@ -58,7 +58,7 @@ public class RoomManager {
 
 
     public RoomManager(Card[][] cards , ArrayList<Player> nplayers){
-        puzzle = new Puzzle(cards);
+        puzzle = new Puzzle();
 //        puzzle.addHaveBePutCardsList(new Point(15,15));
         players = nplayers;
         lastPlayerOpInfo = new JSONObject();
@@ -73,7 +73,11 @@ public class RoomManager {
         activePlayerNum = 0;
     }
 
-    public Boolean playerActionPutCard(String accountNum,Integer putX,Integer putY,Integer rotation){
+    public Integer getScoreByAccountNum(String accountNum){
+        return  playerScore.get(accountNum);
+    }
+
+    public Boolean playerActionPutCard(String accountNum, Integer putX, Integer putY, Integer rotation){
 //        JSONArray jsonArray = new JSONArray();   //获取牌库用的
 //        for (int i=0;i<cardLibrary.length;i++){
 //            jsonArray.add(cardLibrary[i].toJsonString());
@@ -96,16 +100,12 @@ public class RoomManager {
                 putCard(putX,putY,card);
 
             }
-            logger.info("~~~~ 本次放置成功！");
+            logger.info("~~~~ 本次放置成功！地图卡片数："+puzzle.showPuzzle().size()+"  详情="+puzzle.showPuzzle());
             return false;
         }catch (Exception e){
-            logger.info("#### playerAction函数出错, 回合数" + nowTurnNum +" 玩家序号" + nowPlayerNum + "切换下一玩家"+"  错误信息："+e.getMessage());
-//            if(nowPlayerNum == players.size() -1){  //出错先切换玩家
-//                nowTurnNum++;
-//                nowPlayerNum = 0;
-//            }else {
-//                nowPlayerNum++;
-//            }
+            logger.info("#### playerAction函数出错, 回合数" + nowTurnNum +" 玩家序号" + nowPlayerNum +"  错误信息："+e.getMessage());
+            e.printStackTrace();
+
             return true;
         }
 
@@ -139,15 +139,19 @@ public class RoomManager {
 
             }
             else {
-                lastPlayerOpInfo.put("lastPlayerOccupyBlockId",999);
-                if(nowPlayerNum == players.size() -1){
-                    nowTurnNum++;
-                    nowPlayerNum = 0;
-                    return deal();
-                }else {
-                    nowPlayerNum++;
-                    return deal();
+                if( players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
+                    lastPlayerOpInfo.put("lastPlayerOccupyBlockId",999);
+                    if(nowPlayerNum == players.size() -1){
+                        nowTurnNum++;
+                        nowPlayerNum = 0;
+                        return deal();
+                    }else {
+                        nowPlayerNum++;
+                        return deal();
+                    }
                 }
+                else return true;
+
             }
 
         }catch (Exception e){
@@ -230,7 +234,7 @@ public class RoomManager {
             pointsStr += ", ("+res.getJSONObject(i).get("roundPlayerCanPutPositionX")+","+res.getJSONObject(i).get("roundPlayerCanPutPositionY")+","+
                     res.getJSONObject(i).get("roundPlayerCanPutPositionRotation")+")";
         }
-        logger.info("能放的坐标数"+res.size()+" = " + pointsStr);
+        logger.info("当前请求者"+players.get(nowPlayerNum).getAccountNum()+" ,能放的坐标数"+res.size()+" = " + pointsStr);
         return res;
     }
 
@@ -326,15 +330,14 @@ public class RoomManager {
             if(players.get(i).getReady()==true) flag++;
         }
         if (flag==players.size() && flag > 1) {
-            Card[][] cards = new Card[31][31];
             Card or = new Card();
             or.setBot(new Edge(99,"grass","{\"top\":\"false\",\"bot\":\"false\",\"lef\":\"false\",\"rig\":\"false\"}"));
             or.setLef(new Edge(99,"road","{\"top\":\"false\",\"bot\":\"false\",\"lef\":\"false\",\"rig\":\"true\"}"));
             or.setRig(new Edge(99,"road","{\"top\":\"false\",\"bot\":\"false\",\"lef\":\"true\",\"rig\":\"false\"}"));
             or.setTop(new Edge(99,"city","{\"top\":\"false\",\"bot\":\"false\",\"lef\":\"false\",\"rig\":\"false\"}"));
-
-            puzzle = new Puzzle(cards);
+            puzzle = new Puzzle();
             putCard(15,15,or);
+
             updateCanPutPositionList(new Point(15,15));
             nowPlayerNum = 0;
             nowTurnNum = 0;
@@ -1096,10 +1099,10 @@ public class RoomManager {
 
     public JSONArray getPlayerScoreToJSONArray(){
         JSONArray res = new JSONArray();
-        for (Map.Entry<String, Integer> entry : playerScore.entrySet()) {
+        for (int i=0;i<players.size();i++) {
             JSONObject temp = new JSONObject();
-            String accountNum = entry.getKey();
-            Integer score = entry.getValue();
+            String accountNum = players.get(i).getAccountNum();
+            Integer score = playerScore.get(accountNum);
             temp.put("playAccountNum",accountNum);
             temp.put("Score",score);
             temp.put("pieceRemainNum",8);

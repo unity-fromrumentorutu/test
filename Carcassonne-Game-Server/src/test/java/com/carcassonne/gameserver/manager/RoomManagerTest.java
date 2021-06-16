@@ -435,7 +435,7 @@ class RoomManagerTest {
 
 
             }catch(Exception e){
-            System.out.println(e.getMessage());
+
             }
         }
         System.out.println("总的"+a+",一共对了"+k+"次");

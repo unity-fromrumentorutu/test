@@ -102,6 +102,8 @@ public class MainGameManager {
 
 //TODO 获取frame  流程==> 发牌，获取放置区域，获取占领板块，放牌，放置占领，计算得分，保存当前frame
     public JSONObject getFrameInfo(Integer roomNum){
+
+
         JSONObject res = new JSONObject();
         Integer roundNum = roomHashMap.get(roomNum).getRoomManager().getNowTurnNum();
         String roundPlayerAccountNum = roomHashMap.get(roomNum).getRoomManager().getPlayerAccountNum();
