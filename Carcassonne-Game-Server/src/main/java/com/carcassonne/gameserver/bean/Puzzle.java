@@ -17,7 +17,7 @@ public class Puzzle {
     private ArrayList<Point> canPutPositionList;
 
     public Puzzle(){
-        this.mPuzzle = new Card[31][31];
+        this.mPuzzle = new Card[32][32];
         this.haveBePutCardsList = new ArrayList<Point>();
         this.canPutPositionList = new ArrayList<Point>();
     }

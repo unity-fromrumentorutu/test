@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.carcassonne.gameserver.bean.*;
 import com.carcassonne.gameserver.util.MapUtil;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
@@ -14,8 +15,8 @@ import java.util.*;
  */
 public class RoomManager {
 
-    static public int MAX_X = 29;
-    static public int MAX_Y = 29;
+    static public int MAX_X = 30;
+    static public int MAX_Y = 30;
     static public int MIN_X = 0;
     static public int MIN_Y = 0;
 
@@ -28,7 +29,8 @@ public class RoomManager {
     }
 
     private ArrayList<Player> players;
-
+    private JSONArray occupyInfo = null;
+    private JSONArray myPlayerScore = null;
     private ArrayList<String> playerIds = new ArrayList<>();
 
     private Integer activePlayerNum;
@@ -78,11 +80,11 @@ public class RoomManager {
     }
 
     public Boolean playerActionPutCard(String accountNum, Integer putX, Integer putY, Integer rotation){
-//        JSONArray jsonArray = new JSONArray();   //获取牌库用的
-//        for (int i=0;i<cardLibrary.length;i++){
-//            jsonArray.add(cardLibrary[i].toJsonString());
-//        }
-//        System.out.println(jsonArray);
+        JSONArray jsonArray = new JSONArray();   //获取牌库用的
+        for (int i=0;i<cardLibrary.length;i++){
+            jsonArray.add(cardLibrary[i].toJsonString());
+        }
+        System.out.println(jsonArray);
 
         try {
             logger.info("====> 回合数为"+ nowTurnNum +", 玩家序号"+ nowPlayerNum +" 尝试放置坐标(X,Y,R)=("+putX+","+putY+","+rotation+") ，占领：否 ， 手牌URL："+ players.get(nowPlayerNum).getHand().getPictureUrl());
@@ -111,21 +113,33 @@ public class RoomManager {
 
     }
 
-    public Boolean playerActionOccupy(String accountNum,Integer occupyBlockNum,String blockType){
+    public Boolean playerActionOccupy(String accountNum,String isOccupyBlock,Integer occupyX,Integer occupyY
+            ,String occupyEdge,Integer score){
 
         try {
-            if(occupyBlockNum != 999 && players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
+            if(isOccupyBlock.equals("true") && players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
+                JSONObject res = new JSONObject();
+                res.put("accountNum",accountNum);
+                res.put("occupyX",occupyX);
+                res.put("occupyY",occupyY);
+                res.put("occupyEdge",occupyEdge);
+                res.put("score",score);
+                occupyInfo.add(res);
 
-                JSONArray occupyArray = getNowPlayerCanOccupyBlock();
-                for(int i=0;i<occupyArray.size();i++){
-                    if(occupyArray.getJSONObject(i).getInteger("roundPlayerCanOccupyBlockId") == occupyBlockNum){
-                        lastPlayerOpInfo.put("lastPlayerOccupyBlockInfo",occupyArray.getJSONObject(i));
-                        break;
+                for(int i=0;i<myPlayerScore.size();i++){
+                    if (myPlayerScore.getJSONObject(i).getString("playAccountNum").equals(accountNum)){
+                        int tempScore = myPlayerScore.getJSONObject(i).getInteger("score");
+                        myPlayerScore.remove(i);
+                        tempScore += score;
+                        JSONObject temp = new JSONObject();
+                        temp.put("playAccountNum",accountNum);
+                        temp.put("score",tempScore);
+                        myPlayerScore.add(temp);
                     }
                 }
-
-                appropriated(occupyBlockNum,players.get(nowPlayerNum).getAccountNum(),blockType);
-                lastPlayerOpInfo.put("lastPlayerOccupyBlockId",occupyBlockNum);
+                lastPlayerOpInfo.put("lastPlayerOccupyBlockX",occupyX);
+                lastPlayerOpInfo.put("lastPlayerOccupyBlockY",occupyY);
+                lastPlayerOpInfo.put("lastPlayerOccupyBlockEdge",occupyEdge);
 
                     //切换玩家
                 if(nowPlayerNum == players.size() -1){
@@ -140,7 +154,10 @@ public class RoomManager {
             }
             else {
                 if( players.get(nowPlayerNum).getAccountNum().equals(accountNum)){
-                    lastPlayerOpInfo.put("lastPlayerOccupyBlockId",999);
+                    lastPlayerOpInfo.put("lastPlayerOccupyBlockX",999);
+                    lastPlayerOpInfo.put("lastPlayerOccupyBlockY",999);
+                    lastPlayerOpInfo.put("lastPlayerOccupyBlockEdge","null");
+
                     if(nowPlayerNum == players.size() -1){
                         nowTurnNum++;
                         nowPlayerNum = 0;
@@ -151,12 +168,11 @@ public class RoomManager {
                     }
                 }
                 else return true;
-
             }
 
         }catch (Exception e){
-            logger.info("！占领"+occupyBlockNum+"失败");
-            System.out.println(e);
+            e.printStackTrace();
+            logger.error("！！ playerActionOccupy 函数出错");
             return true;
         }
     }
@@ -216,7 +232,8 @@ public class RoomManager {
 
     public JSONArray getNowPlayerCanPutPosition(){
         JSONArray res = new JSONArray();
-        HashMap<Integer,ArrayList<Point>> allCanPutPositionList = getAllCanPutPositionList(players.get(nowPlayerNum).getHand());
+        Card card = players.get(nowPlayerNum).getHand();
+        HashMap<Integer,ArrayList<Point>> allCanPutPositionList = getAllCanPutPositionList(card);
         for (int i = 0 ; i < 4 ; i++){
             for (int j = 0 ; j < allCanPutPositionList.get(i).size() ; j++){
                 JSONObject temp = new JSONObject();
@@ -338,6 +355,14 @@ public class RoomManager {
             puzzle = new Puzzle();
             putCard(15,15,or);
 
+            occupyInfo = new JSONArray();
+            myPlayerScore = new JSONArray();
+            for(int i=0;i<players.size();i++){
+                JSONObject temp = new JSONObject();
+                temp.put("playAccountNum",players.get(i).getAccountNum());
+                temp.put("score",0);
+                myPlayerScore.add(temp);
+            }
             updateCanPutPositionList(new Point(15,15));
             nowPlayerNum = 0;
             nowTurnNum = 0;
@@ -1115,5 +1140,7 @@ public class RoomManager {
         return cardLibrary.length - nowLibNum;
     }
 
-
+    public JSONArray getMyPlayerScore() {
+        return myPlayerScore;
+    }
 }

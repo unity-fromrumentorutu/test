@@ -78,8 +78,10 @@ public class RoomService {
         return MainGameManager.getInstance().fanCard(roomNum,accountNum,putX,putY,rotation);
     }
 
-    public Boolean occupy(Integer roomNum,String accountNum,Integer occupyBlockNum,String blockType){
-        return MainGameManager.getInstance().occupy(roomNum,accountNum,occupyBlockNum,blockType);
+    public Boolean occupy(Integer roomNum,String accountNum,String isOccupyBlock,Integer occupyX,Integer occupyY
+            ,String occupyEdge,Integer score){
+        return MainGameManager.getInstance().occupy(roomNum,accountNum,isOccupyBlock, occupyX,occupyY
+                ,occupyEdge,score);
     }
 
     public void addMsg(Integer roomNum,String accountNum ,String content){

@@ -35,19 +35,19 @@ public class Test {
         Thread.sleep(200);
 
 
-        for (int i=0 ;i<40;i++){
+        for (int i=0 ;i<46;i++){
             JSONObject getFrameInfo1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_getFrameInfo,NULL,TOKEN,token1)) ;
             ArrayList<PutPoint> putPointList = HTTPUtil.formatFrameToGetPutPoint(getFrameInfo1);
             if(getFrameInfo1.getString("roundPlayerAccountNum").equals(accountNum_1)){
                 String request= "{\"putX\":\""+putPointList.get(0).getX()+"\",\"putY\":\""+putPointList.get(0).getY()+"\",\"rotation\":\""+putPointList.get(0).getRotation()+"\"}" ;
                 JSONObject fanCard1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_fanCard,request,TOKEN,token1)) ;
-                request = "{\"occupyBlock\":999,\"blockType\":\"road\"}";
+                request = "{\"isOccupyBlock\":\"true\",\"occupyX\":15,\"occupyY\":16,\"occupyEdge\":\"top\",\"score\":2}";
                 JSONObject occupy1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_occupy,request,TOKEN,token1)) ;
             }
             else if (getFrameInfo1.getString("roundPlayerAccountNum").equals(accountNum_2)){
                 String request= "{\"putX\":\""+putPointList.get(0).getX()+"\",\"putY\":\""+putPointList.get(0).getY()+"\",\"rotation\":\""+putPointList.get(0).getRotation()+"\"}" ;
                 JSONObject fanCard1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_fanCard,request,TOKEN,token2)) ;
-                request = "{\"occupyBlock\":999,\"blockType\":\"road\"}";
+                request = "{\"isOccupyBlock\":\"true\",\"occupyX\":16,\"occupyY\":17,\"occupyEdge\":\"lef\",\"score\":4}";
                 JSONObject occupy1 = JSONObject.parseObject(HTTPUtil.post(HTTPUtil.BASE_ADDRESS + HTTPUtil.playing_occupy,request,TOKEN,token2)) ;
             }
         }

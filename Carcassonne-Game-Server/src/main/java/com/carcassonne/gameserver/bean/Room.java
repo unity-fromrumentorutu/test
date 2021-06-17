@@ -53,13 +53,16 @@ public class Room {
 
         for (int i = 0 ; i < cardArrayList.size() ; i++){
             for ( int j = 0 ; j < cardArrayList.get(i).getCount() ; j++){
-                temp.add(cardArrayList.get(i));
+                Card card =new Card(cardArrayList.get(i).getId(),cardArrayList.get(i).getPictureUrl(),cardArrayList.get(i).getTop(),cardArrayList.get(i)
+                .getBot(),cardArrayList.get(i).getLef(),cardArrayList.get(i).getRig());
+                temp.add(card);
             }
         } System.out.println("@@@@@  牌库大小："+temp.size());
         Collections.shuffle(temp);
         Card[] cardLib = new Card[temp.size()];
         for (int i = 0 ; i < temp.size() ; i++){
-            cardLib[i] = temp.get(i);
+            Card card= temp.get(i);
+            cardLib[i] = card;
         }
         roomManager.setCardLibrary(cardLib);
     }

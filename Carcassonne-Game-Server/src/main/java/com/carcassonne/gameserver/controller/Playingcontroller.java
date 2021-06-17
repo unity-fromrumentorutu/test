@@ -113,7 +113,11 @@ public class Playingcontroller {
         JSONObject result = new JSONObject();
         JSONObject requestBody = new JSONObject();
         String token = null;
-        Integer occupyBlock = null;
+        String isOccupyBlock = null;
+        Integer occupyX = null;
+        Integer occupyY = null;
+        String occupyEdge = null;
+        Integer score = null;
         String blockType = null;
         String accountNum = null;
         Integer roomNum =null;
@@ -121,7 +125,14 @@ public class Playingcontroller {
             token = request.getHeader("token");
             accountNum = JwtTokenUtil.getUsername(token);
             requestBody = JSONObject.parseObject(JSONBody);
-            occupyBlock = requestBody.getInteger("occupyBlock");
+            isOccupyBlock = requestBody.getString("isOccupyBlock");
+            if(isOccupyBlock.equals("true")){
+                occupyX = requestBody.getInteger("occupyX");
+                occupyY = requestBody.getInteger("occupyY");
+                occupyEdge = requestBody.getString("occupyEdge");
+                score = requestBody.getInteger("score");
+
+            }
             roomNum = userService.getWaitStartPlayerByAccountNum(accountNum).getInteger("inRoomNum");
             if (requestBody.containsKey("blockType"))
                 blockType = requestBody.getString("blockType");
@@ -135,14 +146,14 @@ public class Playingcontroller {
         }
 
         try {
-            if (roomService.occupy(roomNum,accountNum,occupyBlock,blockType) == false ) {
+            if (! roomService.occupy(roomNum,accountNum,isOccupyBlock, occupyX,occupyY,occupyEdge,score)) {
                 result.put("code",200);
                 result.put("message","OK, request successfully");
                 return result;
             }else {
                 result.put("code",500);
                 result.put("message", StateCodeConfig.when_500_message(JSONBody));
-                logger.error("/playing/occupy api end with 500 , unknown error ! token :" + token);
+                logger.info("occupy return false");
                 return result;
             }
 

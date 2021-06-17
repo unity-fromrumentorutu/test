@@ -117,13 +117,13 @@ public class MainGameManager {
 
         JSONObject lastPlayerOpResult = roomHashMap.get(roomNum).getRoomManager().getLastPlayerOpInfo();
 
-        JSONArray playSocre = roomHashMap.get(roomNum).getRoomManager().getPlayerScoreToJSONArray();
+        JSONArray playSocre = roomHashMap.get(roomNum).getRoomManager().getMyPlayerScore();
 
         res.put("roundNum",roundNum);
         res.put("roundPlayerAccountNum",roundPlayerAccountNum);
         res.put("roundPlayerOpInfo",roundPlayerOpInfo);
         res.put("lastPlayerOpResult",lastPlayerOpResult);
-        res.put("playSocre",playSocre);
+        res.put("playScore",playSocre);
         res.put("pieceRemainNum",roomHashMap.get(roomNum).getRoomManager().getLibRemainNum());
         return res;
 
@@ -134,8 +134,10 @@ public class MainGameManager {
                 .playerActionPutCard(accountNum,putX,putY,rotation);
     }
 
-    public Boolean occupy(Integer roomNum,String accountNum,Integer occupyBlockNum,String blockType){
-        return roomHashMap.get(roomNum).getRoomManager().playerActionOccupy(accountNum,occupyBlockNum,blockType);
+    public Boolean occupy(Integer roomNum,String accountNum,String isOccupyBlock,Integer occupyX,Integer occupyY
+            ,String occupyEdge,Integer score){
+        return roomHashMap.get(roomNum).getRoomManager().playerActionOccupy(accountNum,isOccupyBlock,occupyX,occupyY
+                ,occupyEdge,score);
 
     }
     public void addMsg(Integer roomNum , String accountNum , String content){

@@ -36,6 +36,15 @@ public class Card {
         this.rigEdgeId = rigEdgeId;
     }
 
+    public Card(Integer id, String pictureUrl, Edge top, Edge bot, Edge lef, Edge rig) {
+        this.id = id;
+        this.pictureUrl = pictureUrl;
+        this.top = top;
+        this.bot = bot;
+        this.lef = lef;
+        this.rig = rig;
+    }
+
     public Card(){}
 
     public JSONObject toJsonString(){
@@ -79,6 +88,8 @@ public class Card {
                 ", rig=" + rig +
                 '}';
     }
+
+
 
     public void formatPictureURL(){
         pictureUrl = PICTURE_PATH + pictureUrl + ".jpg";
